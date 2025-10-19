@@ -1,3 +1,15 @@
+### Educational project: Testing of the Kanban-board
+
+The development of the project includes:
+* Preparation of the environment
+* Creation of the base tests
+* Testing of the authentication and the authorization(the application **has no backend side**, so the testing is executed from the perspective of the functional)
+* Testing of the users aspect of the application
+* Testing of the statuses aspect of the application
+* Testing of the labels aspect of the application
+* Testing of the tasks controlling and organizing
+* Refactoring and optimization of the tests(for example: placing the logic of the interaction with page into separate classes)
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
