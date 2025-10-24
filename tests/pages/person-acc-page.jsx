@@ -3,8 +3,8 @@ import textVault from '../../__fixtures__/text-vault.jsx'
 export class PersonAccPage {
   constructor(page) {
     this.page = page
-    this.welcomText = this.page.getByText(
-      textVault.welcomeTextPersonalAccountPage
+    this.welcomeText = this.page.getByText(
+      textVault.welcomeTextPersonAccPage
     )
     this.logout = this.page.getByText('Logout')
     this.profile = this.page.getByLabel('Profile')
