@@ -26,9 +26,9 @@ test("create status item", async ({ page }) => {
   await checkField(statusPage.createStatusName)
   await checkField(statusPage.createStatusSlug)
   await inputField(statusPage.createStatusName, textVault.createStatusName)
-  await inputField(statusPage.createStatusName, textVault.createStatusSlug)
+  await statusPage.inputCreateStatusSlugField(page, textVault.createStatusSlug)
   await click(statusPage.saveStatus)
-  await checkSaveSuccess(statusPage)
+  await statusPage.checkSaveSuccess(page)
 })
 
 test("status list", async ({ page }) => {

@@ -64,4 +64,8 @@ export class StatusPage {
       timeout,
     })
   }
+
+  async inputCreateStatusSlugField(page, query) {
+    await page.getByLabel('Slug').fill(query)
+  }
 }
