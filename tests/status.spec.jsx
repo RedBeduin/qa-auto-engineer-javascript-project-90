@@ -1,6 +1,6 @@
 import { test } from "@playwright/test"
 import { LoginPage } from "./pages/login-page.jsx"
-import { TaskStatusesPage } from "./pages/task-statuses-page.jsx"
+import { StatusPage } from "./pages/status-page.jsx"
 import textVault from "../__fixtures__/text-vault.jsx"
 import { PersonAccPage } from "./pages/person-acc-page.jsx"
 import {
@@ -21,14 +21,14 @@ test("create status item", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await click(personAccPage.menuStatuses)
-  const statusPage = new TaskStatusesPage(page)
+  const statusPage = new StatusPage(page)
   await click(statusPage.createStatusButton)
   await checkField(statusPage.createStatusName)
   await checkField(statusPage.createStatusSlug)
   await inputField(statusPage.createStatusName, textVault.createStatusName)
   await inputField(statusPage.createStatusName, textVault.createStatusSlug)
   await click(statusPage.saveStatus)
-  await checkField(statusPage.saveSuccess)
+  await checkSaveSuccess(statusPage)
 })
 
 test("status list", async ({ page }) => {
@@ -39,7 +39,7 @@ test("status list", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await click(personAccPage.menuStatuses)
-  const statusPage = new TaskStatusesPage(page)
+  const statusPage = new StatusPage(page)
   await statusPage.checkStatuses(page)
 })
 
@@ -51,7 +51,7 @@ test("editing form status", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await click(personAccPage.menuStatuses)
-  const statusPage = new TaskStatusesPage(page)
+  const statusPage = new StatusPage(page)
   await openCard(page, '1')
   await checkField(statusPage.createStatusName)
   await checkField(statusPage.createStatusSlug)
@@ -66,7 +66,7 @@ test("edit status", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await click(personAccPage.menuStatuses)
-  const statusPage = new TaskStatusesPage(page)
+  const statusPage = new StatusPage(page)
   await openCard(page, '1')
   await inputField(statusPage.createStatusName, textVault.editStatusName)
   await inputField(statusPage.createStatusSlug, textVault.editStatusSlug)
@@ -83,7 +83,7 @@ test("edit status from create", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await click(personAccPage.menuStatuses)
-  const statusPage = new TaskStatusesPage(page)
+  const statusPage = new StatusPage(page)
   await click(statusPage.createStatusButton)
   await inputField(statusPage.createStatusName, textVault.createStatusName)
   await inputField(statusPage.createStatusSlug, textVault.createStatusSlug)
@@ -105,7 +105,7 @@ test("delete status", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await click(personAccPage.menuStatuses)
-  const statusPage = new TaskStatusesPage(page)
+  const statusPage = new StatusPage(page)
   await checkCheckbox(statusPage.checkStatus1)
   await click(statusPage.deleteButton)
   await click(statusPage.undoButton)
@@ -125,7 +125,7 @@ test("delete all status", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await click(personAccPage.menuStatuses)
-  const statusPage = new TaskStatusesPage(page)
+  const statusPage = new StatusPage(page)
   await checkCheckbox(statusPage.checkEach)
   await checkField(statusPage.itemSelected)
   await click(statusPage.deleteButton)

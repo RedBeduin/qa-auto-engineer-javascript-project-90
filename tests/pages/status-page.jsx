@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 import textVault from '../../__fixtures__/text-vault.jsx'
 import taskStatuses from '../../__fixtures__/task-statuses.jsx'
 
-export class TaskStatusesPage {
+export class StatusPage {
   constructor(page) {
     this.page = page;
     this.createStatusButton = this.page.getByLabel('Create', { exact: true })
@@ -41,5 +41,27 @@ export class TaskStatusesPage {
         page.getByText(taskStatuse.Slug, { exact: true })
       ).toBeVisible()
     }
+  }
+
+  async saveStatusAction(page) {
+    await page.getByLabel('Save').click()
+  }
+
+  async saveSuccessAction(page) {
+    await page.getByText('Element created').click()
+  }
+  
+  async saveDeleteButtonAction(page) {
+    await page.getByText('SaveDelete').click()
+  }
+
+  async deleteAction(page) {
+    await page.getByLabel('Delete').click()
+  }
+
+  async checkSaveSuccess(page, timeout = 35000) {
+    await expect(page.getByText('Element created')).toBeVisible({
+      timeout,
+    })
   }
 }

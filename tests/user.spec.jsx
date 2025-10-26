@@ -13,13 +13,13 @@ import {
   checkFieldByTextNotVisible,
 } from "./func.jsx"
 
-test("application display", async ({ page }) => {
+test('application display', async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
   const loginPage = new LoginPage(page)
   await checkField(loginPage.userlogin)
   await checkField(loginPage.password)
   await checkField(loginPage.signIn)
-});
+})
 
 test("login", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -28,7 +28,7 @@ test("login", async ({ page }) => {
   await inputField(loginPage.password, textVault.password)
   await click(loginPage.signIn)
   await checkFieldByText(textVault.welcomeTextPersonAccPage, page)
-});
+})
 
 test("negative - login", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -45,7 +45,7 @@ test("negative - login", async ({ page }) => {
   await inputField(loginPage.password, "")
   await click(loginPage.signIn)
   await checkFieldByText(textVault.errorTextLoginPage, page)
-});
+})
 
 test("logout", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -60,7 +60,7 @@ test("logout", async ({ page }) => {
   await checkField(loginPage.userlogin)
   await checkField(loginPage.password)
   await checkField(loginPage.signIn)
-});
+})
 
 test("create user", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -89,7 +89,7 @@ test("create user", async ({ page }) => {
   await checkFieldByText(textVault.createUserEmail, page)
   await checkFieldByText(textVault.createUserFirstName, page)
   await checkFieldByText(textVault.createUserLastName, page)
-});
+})
 
 test("user list", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -101,7 +101,7 @@ test("user list", async ({ page }) => {
   await click(loginPage.signIn)
   await click(personAccPage.menuUsers)
   await userPage.checkUsers(page)
-});
+})
 
 test("editing form", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -118,7 +118,7 @@ test("editing form", async ({ page }) => {
   await checkField(userPage.userLastName)
   await checkField(userPage.userPassword)
   await checkField(userPage.saveDeleteButton)
-});
+})
 
 test("edit user", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -138,7 +138,7 @@ test("edit user", async ({ page }) => {
   await checkFieldByText(textVault.editUserEmail, page)
   await checkFieldByText(textVault.editUserFirstName, page)
   await checkFieldByText(textVault.editUserLastName, page)
-});
+})
 
 test("edit user from create form", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -165,7 +165,7 @@ test("edit user from create form", async ({ page }) => {
   await checkFieldByText(textVault.editUserEmail, page)
   await checkFieldByText(textVault.editUserFirstName, page)
   await checkFieldByText(textVault.editUserLastName, page)
-});
+})
 
 test("negative - edit user", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -182,7 +182,7 @@ test("negative - edit user", async ({ page }) => {
   await inputField(userPage.userLastName, '')
   await inputField(userPage.userPassword, '')
   await click(userPage.saveButton)
-});
+})
 
 test("delete user", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
@@ -205,7 +205,7 @@ test("delete user", async ({ page }) => {
   await click(userPage.createUserDeleteButton)
   await checkFieldByTextNotVisible(textVault.userForDeletion2[0], page)
   await checkFieldByTextNotVisible(textVault.userForDeletion3[0], page)
-});
+})
 
 test("delete all user", async ({ page }) => {
   await page.goto("http://localhost:5173/#/login")
