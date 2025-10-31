@@ -4,36 +4,38 @@ import textVault from '../../__fixtures__/text-vault.jsx'
 export class LoginPage {
   constructor(page) {
     this.page = page
-    this.userlogin = this.page.getByLabel('Username *')
-    this.password = this.page.getByLabel('Password *')
-    this.signIn = this.page.getByRole('button', { name: 'Sign in' })
-    this.errorText = this.page.getByText(textVault.errorTextLoginPage)
   }
 
+  userlogin = `aria-label="Username *"`
+  password = `aria-label="Password *"`
+  signIn = `button[name="Sign in"]`
+  errorText = `selector[text="${textVault.errorTextLoginPage}"]`
+  
   async checkUserNameField() {
-    await expect(this.userlogin).toBeVisible();
+    await expect(userlogin).toBeVisible()
   }
 
   async checkPasswordField() {
-    await expect(this.password).toBeVisible();
+    await expect(password).toBeVisible()
   }
 
   async checkSignIn() {
-    await expect(this.signIn).toBeVisible();
+    await expect(signIn).toBeVisible()
   }
 
-  async inputUserNameField(query) {
-    await this.userlogin.fill(query);
+  async inputUserloginField(query) {
+    await this.page.fill(userlogin, query)
   }
 
   async inputPasswordField(query) {
-    await this.password.fill(query);
+    await this.page.fill(password, query)
   }
+
   async clickSignInButton() {
-    await this.signIn.click();
+    await this.page.click(signIn)
   }
 
   async checkErrorText() {
-    await expect(this.errorText).toBeVisible();
+    await expect(errorText).toBeVisible()    
   }
 }

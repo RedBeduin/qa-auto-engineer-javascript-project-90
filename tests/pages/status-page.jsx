@@ -1,71 +1,82 @@
-import { expect } from '@playwright/test'
-import textVault from '../../__fixtures__/text-vault.jsx'
-import taskStatuses from '../../__fixtures__/task-statuses.jsx'
-
-export class StatusPage {
+export default class StatusesPage {
   constructor(page) {
     this.page = page;
-    this.createStatusButton = this.page.getByLabel('Create', { exact: true })
-    this.createStatusName = this.page.getByLabel('Name')
-    this.createStatusSlug = this.page.getByLabel('Slug')
-    this.saveStatus = this.page.getByLabel('Save')
-    this.saveSuccess = this.page.getByText('Element created')
-    this.saveDeleteButton = this.page.getByText('SaveDelete')
-    this.showButtonStatusCreate = this.page.getByLabel('Show')
-    this.editButton = this.page.getByLabel('Edit')
-    this.deleteButton = this.page.getByLabel('Delete')
-    this.undoButton = this.page.getByRole('button', { name: 'Undo' })
-    this.checkEach = page.getByLabel('Select all')
-    this.itemSelected = this.page.getByRole('heading', {
-      name: 'items selected',
-    })
-    this.checkStatus1 = this.page.getByRole('row', {
-      name: `Select this row ${textVault.statusForDeletion1}`,
-    })
-    this.checkStatus2 = this.page.getByRole('row', {
-      name: `Select this row ${textVault.statusForDeletion2}`,
-    })
-    this.checkStatus3 = this.page.getByRole('row', {
-      name: `Select this row ${textVault.statusForDeletion3}`,
-    })
-
-    this.noTaskStatus = this.page.getByText('No Task status yet.')
   }
 
-  async checkStatuses(page) {
-    for (const taskStatuse of taskStatuses) {
-      await expect(
-        page.getByText(taskStatuse.Name, { exact: true })
-      ).toBeVisible()
-      await expect(
-        page.getByText(taskStatuse.Slug, { exact: true })
-      ).toBeVisible()
-    }
+  async navigateToLoginPage() {
+    await this.page.goto('http://localhost:5173/#/login');
   }
 
-  async saveStatusAction(page) {
-    await page.getByLabel('Save').click()
+  async login(username, password) {
+    await this.page.fill('input[name="username"]', username);
+    await this.page.fill('input[name="password"]', password);
+    await this.page.click('text="Sign in"');
   }
 
-  async saveSuccessAction(page) {
-    await page.getByText('Element created').click()
-  }
-  
-  async saveDeleteButtonAction(page) {
-    await page.getByText('SaveDelete').click()
+  async navigateToStatusesPage() {
+    await this.page.goto('http://localhost:5173/#/task_statuses');
   }
 
-  async deleteAction(page) {
-    await page.getByLabel('Delete').click()
+  async createNewStatus(name, slug) {
+    await this.navigateToStatusesPage()
+    await this.clickCreateButton();
+    await this.fillNameInput(name);
+    await this.fillSlugInput(slug);
+    await this.clickSaveButton();
+    await this.navigateToStatusesPage();
+    return await this.page.waitForSelector(`text="${name}"`);
   }
 
-  async checkSaveSuccess(page, timeout = 35000) {
-    await expect(page.getByText('Element created')).toBeVisible({
-      timeout,
-    })
+  async editStatus(currentName, newName) {
+    await this.clickStatus(currentName);
+    await this.fillNameInput(newName);
+    this.clickSaveButton();
+    return await this.page.waitForSelector(`text="${newName}"`);
   }
 
-  async inputCreateStatusSlugField(page, query) {
-    await page.getByLabel('Slug').fill(query)
+  async deleteStatus(name) {
+    await this.navigateToStatusesPage();
+    await this.clickStatus(name);
+    await this.clickDeleteButton();
+    await this.navigateToStatusesPage();
+  }
+
+  async deleteAllStatuses() {
+    await this.navigateToStatusesPage();
+    await this.selectAllStatuses();
+    await this.clickDeleteButton();
+    await this.navigateToStatusesPage();
+  }
+
+  async waitForSelector(selector) {
+    await this.page.waitForSelector(selector);
+  }
+
+  async clickCreateButton() {
+    await this.page.click('[aria-label="Create"]');
+  }
+
+  async fillNameInput(name) {
+    await this.page.fill('input[name="name"]', name);
+  }
+
+  async fillSlugInput(slug) {
+    await this.page.fill('input[name="slug"]', slug);
+  }
+
+  async clickSaveButton() {
+    await this.page.click('[aria-label="Save"]');
+  }
+
+  async clickStatus(name) {
+    await this.page.click(`text="${name}"`);
+  }
+
+  async clickDeleteButton() {
+    await this.page.click('[aria-label="Delete"]');
+  }
+
+  async selectAllStatuses() {
+    await this.page.click('table thead tr th input[type="checkbox"]');
   }
 }

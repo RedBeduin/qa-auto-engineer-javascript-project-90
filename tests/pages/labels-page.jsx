@@ -5,35 +5,27 @@ import textVault from '../../__fixtures__/text-vault.jsx'
 export class LabelsPage {
   constructor(page) {
     this.page = page
-    this.createLabelsButton = this.page.getByLabel('Create', { exact: true })
-    this.createLabelsName = this.page.getByLabel('Name')
-    this.saveStatus = this.page.getByLabel('Save')
-    this.saveSuccess = this.page.getByText('Element created')
-    this.saveDeleteButton = this.page.getByText('SaveDelete')
-    this.showButtonStatusCreate = this.page.getByLabel('Show')
-    this.editButton = this.page.getByLabel('Edit')
-    this.deleteButton = this.page.getByLabel('Delete')
-    this.undoButton = this.page.getByRole('button', { name: 'Undo' })
-    this.checkEach = page.getByLabel('Select all')
-    this.labelSelected = this.page.getByRole('heading', {
-      name: 'items selected',
-    });
-    this.checkLabels1 = this.page.getByRole('row', {
-      name: `Select this row ${textVault.labelsForDeletion1}`,
-    });
-    this.checkLabels2 = this.page.getByRole('row', {
-      name: `Select this row ${textVault.labelsForDeletion2}`,
-    });
-    this.checkLabels3 = this.page.getByRole('row', {
-      name: `Select this row ${textVault.labelsForDeletion3}`,
-    });
-
-    this.noLabelsStatus = this.page.getByText('No Label yet.')
   }
-
-  async checkLabels(page) {
+  
+  createLabelsButton = `[aria-label="Create", exact=true]`
+  createLabelsName = `[aria-label="Name"]`
+  saveStatus = `[aria-label="Save"]`
+  saveSuccess = `text="Element created"`
+  saveDeleteButton = `text="SaveDelete"`
+  showButtonStatusCreate = `[aria-label="Show"]`
+  editButton = `[aria-label="Edit"]`
+  deleteButton = `[aria-label="Delete"]`
+  undoButton = `button[name="Undo"]`
+  checkEach = `[aria-label="Select all"]`
+  labelSelected = `heading[name="items selected"]`
+  checkLabels1 = `row[name="Select this row ${textVault.labelsForDeletion1}"]`
+  checkLabels2 = `row[name="Select this row ${textVault.labelsForDeletion2}"]`
+  checkLabels3 = `row[name="Select this row ${textVault.labelsForDeletion3}"]`
+  noLabelsStatus = `text="No Label yet."`
+  
+  async checkLabels() {
     for (const label of labels) {
-      await expect(page.getByText(label.Name, { exact: true })).toBeVisible()
+      await expect(`text=${label.Name}, exact=true`).toBeVisible()
     }
-  }
+  } 
 }

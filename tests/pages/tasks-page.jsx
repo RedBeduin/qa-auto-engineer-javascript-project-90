@@ -5,73 +5,39 @@ import textVault from '../../__fixtures__/text-vault'
 export class TasksPage {
   constructor(page) {
     this.page = page
-    this.createLabelsButton = this.page.getByLabel('Create', { exact: true })
-    this.createAssignee = this.page.getByLabel('Assignee', { exact: true })
-    this.createTitle = this.page.getByLabel('Title', { exact: true })
-    this.createContent = this.page.getByLabel('Content', { exact: true })
-    this.createStatus = this.page.getByLabel('Status')
-    this.createLabel = this.page.getByLabel('Label')
-    this.tasksSave = this.page.getByLabel('Save')
-    this.saveSuccess = this.page.getByText('Element created')
-    this.successUpdate = this.page.getByText('Element updated')
-    this.successDelete = this.page.getByText('Element deleted')
-    this.filterAssignee = this.page.getByRole('combobox', {
-      name: 'Assignee',
-    })
-    this.filterStatus = this.page.getByRole('combobox', { name: 'Status' })
-    this.filterLabel = this.page.getByRole('combobox', { name: 'Label' })
-    
-    this.editTask1 = this.page
-      .getByRole('button', { name: textVault.task1 })
-      .getByLabel('Edit')
-
-    this.editTask2 = this.page
-      .getByRole('button', { name: textVault.task2 })
-      .getByLabel('Edit')
-
-    this.editTask3 = this.page
-      .getByRole('button', { name: textVault.task3 })
-      .getByLabel('Edit')
-
-    this.showTask = this.page
-      .getByRole('button', { name: textVault.task1 })
-      .getByLabel('Show')
-
-    this.task1 = this.page.getByRole('button', {
-      name: textVault.task1,
-    })
-
-    this.task4 = this.page.getByRole('button', {
-      name: textVault.task4,
-    })
-
-    this.task6 = this.page.getByRole('button', {
-      name: textVault.task6,
-    })
-
-    this.task7 = this.page.getByRole('button', {
-      name: textVault.task7,
-    })
-
-    this.task10 = this.page.getByRole('button', {
-      name: textVault.task10,
-    })
-
-    this.task15 = this.page.getByRole('button', {
-      name: textVault.task15,
-    })
-    
-    this.deleteButton = this.page.getByLabel('Delete')
-    this.undoButton = this.page.getByRole('button', { name: 'Undo' })
-    this.valueAssignee = this.page.getByRole('combobox', {
-      name: textVault.valueAssignee,
-    })
-    this.сlearValue = this.page.getByRole('option', { name: textVault.clearValue })
   }
-
-  async checkTasks(page) {
+  
+  createLabelsButton = `[aria-label="Create", exact=true]`
+  createAssignee = `[aria-label="Assignee", exact=true]`
+  createTitle = `[aria-label='Title', exact=true]`
+  createContent = `[aria-label="Content", exact=true]`
+  createStatus = `[aria-label="Status"]`
+  createLabel = `[aria-label="Label"]`
+  tasksSave = `[aria-label="Save"]`
+  saveSuccess = `text="Element created"`
+  successUpdate = `text="Element updated"`
+  successDelete = `text="Element deleted"`
+  filterAssignee = `combobox[name="Assignee"]`
+  filterStatus = `combobox[name="Status"]`
+  filterLabel = `combobox[name="Label"]`    
+  editTask1 = `button[name="${textVault.task1}"], [aria-label="Edit"]`
+  editTask2 = `button[name="${textVault.task2}"], [aria-label="Edit"]`
+  editTask3 = `button[name="${textVault.task3}"], [aria-label="Edit"]`
+  showTask1 = `button[name="${textVault.task1}"], [aria-label="Show"]`
+  task1 = `button[name="${textVault.task1}"]`
+  task4 = `button[name="${textVault.task4}"]`
+  task6 = `button[name="${textVault.task6}"]`
+  task7 = `button[name="${textVault.task7}"]`
+  task10 = `button[name="${textVault.task10}"]`
+  task15 = `button[name="${textVault.task15}"]`
+  deleteButton = `[aria-label="Delete"]`
+  undoButton = `button[name="Undo"]`
+  valueAssignee = `combobox[name="${textVault.valueAssignee}"]`
+  сlearValue = `option[name="${textVault.clearValue}"]`
+  
+  async checkTasks() {
     for (const task of tasks) {
-      await expect(page.getByRole('button', { name: task.name })).toBeVisible()
+      await expect(`button[name=${task.name}]`).toBeVisible()
     }
   }
 }
