@@ -5,7 +5,7 @@ export class LoginPage {
 
 
   async navigateToLoginPage() {
-    await page.goto('http://localhost:5173/#/login')
+    await this.page.goto('http://localhost:5173/#/login')
   }
   
   async login(username, password) {
