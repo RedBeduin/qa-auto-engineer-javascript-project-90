@@ -1,4 +1,4 @@
-import { test } from "@playwright/test"
+import { test, expect } from "@playwright/test"
 import { StatusPage } from "./pages/status-page.jsx"
 import taskStatuses from "../__fixtures__/task-statuses.jsx"
 
@@ -8,8 +8,8 @@ test("create status item", async ({ page }) => {
   await statusPage.login('Username', 'Password')
   await statusPage.navigateToStatusesPage()
   await statusPage.createNewStatus('StatusName', 'StatusSlug')
-  expect(`text="StatusName"`).toBeVisible()
-  expect(`text="StatusSlug"`).toBeVisible()
+  await expect(`text="StatusName"`).toBeVisible()
+  await expect(`text="StatusSlug"`).toBeVisible()
 })
 
 test("status list", async ({ page }) => {
@@ -18,10 +18,10 @@ test("status list", async ({ page }) => {
   await statusPage.login('Username', 'Password')
   await statusPage.navigateToStatusesPage()
   for(const taskStatuse of taskStatuses) {
-    expect(
+    await expect(
       `[name=${taskStatuse.Name}, exact=true]`
     ).toBeVisible()
-    expect(
+    await expect(
       `[name=${taskStatuse.Slug}, exact=true]`
     ).toBeVisible()
   } 
@@ -33,8 +33,8 @@ test("edit status", async ({ page }) => {
   await statusPage.login('Username', 'Password')
   await statusPage.navigateToStatusesPage()
   await statusPage.editStatus('Draft', 'ChangedName', 'ChangedSlug')
-  expect(`text="ChangedName"`).toBeVisible()
-  expect(`text="ChangedSlug"`).toBeVisible()
+  await expect(`text="ChangedName"`).toBeVisible()
+  await expect(`text="ChangedSlug"`).toBeVisible()
 })
 
 test("Edit status from status summary page", async ({ page }) => {
@@ -44,8 +44,8 @@ test("Edit status from status summary page", async ({ page }) => {
   await statusPage.navigateToStatusesPage()
   await statusPage.createNewStatus('StatusName', 'StatusSlug')
   await statusPage.editStatusAfterCreation('ChangedName', 'ChangedSlug')
-  expect(`text="ChangedName"`).toBeVisible()
-  expect(`text="ChangedSlug"`).toBeVisible()
+  await expect(`text="ChangedName"`).toBeVisible()
+  await expect(`text="ChangedSlug"`).toBeVisible()
 })
 
 test("delete status", async ({ page }) => {
@@ -54,8 +54,8 @@ test("delete status", async ({ page }) => {
   await statusPage.login('Username', 'Password')
   await statusPage.navigateToStatusesPage()
   await statusPage.deleteStatus('Draft')
-  expect(`text="Draft"`).not.toBeVisible()
-  expect(`text="draft"`).not.toBeVisible() 
+  await expect(`text="Draft"`).not.toBeVisible()
+  await expect(`text="draft"`).not.toBeVisible() 
 })
 
 test("delete all status", async ({ page }) => {
@@ -64,7 +64,7 @@ test("delete all status", async ({ page }) => {
   await statusPage.login('Username', 'Password')
   await statusPage.navigateToStatusesPage()
   await statusPage.deleteAllStatuses()
-  expect(`text="No Task statuses yet."`).toBeVisible()
-  expect(`text="Draft"`).not.toBeVisible()
-  expect(`text="draft"`).not.toBeVisible()
+  await expect(`text="No Task statuses yet."`).toBeVisible()
+  await expect(`text="Draft"`).not.toBeVisible()
+  await expect(`text="draft"`).not.toBeVisible()
 })

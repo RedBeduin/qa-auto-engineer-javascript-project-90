@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { LoginPage } from "./pages/login-page.jsx";
 import { PersonAccPage } from "./pages/person-acc-page.jsx";
 import { UsersPage } from "./pages/user-page.jsx";
@@ -7,27 +7,27 @@ import users from '../__fixtures__/users.jsx'
 test('application display', async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
-  expect(`input[name="username"]`).toBeVisible()
-  expect(`input[name="password"]`).toBeVisible()
-  expect(`text="Sign in"`).toBeVisible()
+  await expect(`input[name="username"]`).toBeVisible()
+  await expect(`input[name="password"]`).toBeVisible()
+  await expect(`text="Sign in"`).toBeVisible()
 })
 
 test("login", async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.login('Username', 'Password')
-  expect(`text="Lorem ipsum sic dolor amet..."`).toBeVisible()
+  await expect(`text="Lorem ipsum sic dolor amet..."`).toBeVisible()
 })
 
 test("negative - login", async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.login('', '')
-  expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
+  await expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
   await loginPage.loginWithoutUsername('Password')
-  expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
+  await expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
   await loginPage.loginWithoutPassword('Username')
-  expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
+  await expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
 })
 
 test("logout", async ({ page }) => {
@@ -35,11 +35,11 @@ test("logout", async ({ page }) => {
   const personAccPage = new PersonAccPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.login('Username', 'Password')
-  expect(`text="Lorem ipsum sic dolor amet..."`).toBeVisible()
+  await expect(`text="Lorem ipsum sic dolor amet..."`).toBeVisible()
   await personAccPage.logOut()
-  expect(`input[name="username"]`).toBeVisible()
-  expect(`input[name="password"]`).toBeVisible()
-  expect(`text="Sign in"`).toBeVisible()
+  await expect(`input[name="username"]`).toBeVisible()
+  await expect(`input[name="password"]`).toBeVisible()
+  await expect(`text="Sign in"`).toBeVisible()
 })
 
 test("create user", async ({ page }) => {
@@ -49,22 +49,22 @@ test("create user", async ({ page }) => {
   await loginPage.login('Username', 'Password')
   await usersPage.navigateToUsersPage()
   await usersPage.createUser('email@gmail.com', 'FirstName', 'LastName')
-  expect(`text="Element created"`).toBeVisible()
-  expect(`text="email@gmail.com"`).toBeVisible() 
-  expect(`text="FirstName"`).toBeVisible()
-  expect(`text="LastName"`).toBeVisible()
-  expect(`[aria-label="Show"]`).toBeVisible()
-  expect(`[disabled][aria-label="Save"]`).toBeVisible()
-  expect(`[aria-label="Delete"]`).toBeVisible()
+  await expect(`text="Element created"`).toBeVisible()
+  await expect(`text="email@gmail.com"`).toBeVisible() 
+  await expect(`text="FirstName"`).toBeVisible()
+  await expect(`text="LastName"`).toBeVisible()
+  await expect(`[aria-label="Show"]`).toBeVisible()
+  await expect(`[disabled][aria-label="Save"]`).toBeVisible()
+  await expect(`[aria-label="Delete"]`).toBeVisible()
   await usersPage.clickShowButton()
-  expect(`text="email@gmail.com"`).toBeVisible()
-  expect(`text="FirstName"`).toBeVisible()
-  expect(`text="LastName"`).toBeVisible()
-  expect(`[aria-label="Edit"]`).toBeVisible()
+  await expect(`text="email@gmail.com"`).toBeVisible()
+  await expect(`text="FirstName"`).toBeVisible()
+  await expect(`text="LastName"`).toBeVisible()
+  await expect(`[aria-label="Edit"]`).toBeVisible()
   await usersPage.navigateToUsersPage()  
-  expect(`text="email@gmail.com"`).toBeVisible()
-  expect(`text="FirstName"`).toBeVisible()
-  expect(`text="LastName"`).toBeVisible() 
+  await expect(`text="email@gmail.com"`).toBeVisible()
+  await expect(`text="FirstName"`).toBeVisible()
+  await expect(`text="LastName"`).toBeVisible() 
 })
 
 test("user list", async ({ page }) => {
@@ -75,9 +75,9 @@ test("user list", async ({ page }) => {
   await usersPage.navigateToUsersPage()
   for(const user of users)
   {
-    expect(`text="${user.Email}"`).toBeVisible()
-    expect(`text="${user.FirstName}"`).toBeVisible()
-    expect(`text="${user.LastName}"`).toBeVisible()
+    await expect(`text="${user.Email}"`).toBeVisible()
+    await expect(`text="${user.FirstName}"`).toBeVisible()
+    await expect(`text="${user.LastName}"`).toBeVisible()
   }
 })
 
@@ -88,12 +88,12 @@ test("editing form", async ({ page }) => {
   await loginPage.login('Username', 'Password')
   await usersPage.navigateToUsersPage()
   await usersPage.openUserData('john@google.com')
-  expect(`text="${users[0].Email}"`).toBeVisible()
-  expect(`text="${users[0].FirstName}"`).toBeVisible()
-  expect(`text="${users[0].LastName}"`).toBeVisible()
-  expect(`[aria-label="Show"]`).toBeVisible()
-  expect(`[disabled][aria-labels="Save"]`).toBeVisible()
-  expect(`[aria-label="Delete"]`).toBeVisible()
+  await expect(`text="${users[0].Email}"`).toBeVisible()
+  await expect(`text="${users[0].FirstName}"`).toBeVisible()
+  await expect(`text="${users[0].LastName}"`).toBeVisible()
+  await expect(`[aria-label="Show"]`).toBeVisible()
+  await expect(`[disabled][aria-labels="Save"]`).toBeVisible()
+  await expect(`[aria-label="Delete"]`).toBeVisible()
 })
 
 test("edit user", async ({ page }) => {
@@ -104,10 +104,10 @@ test("edit user", async ({ page }) => {
   await usersPage.navigateToUsersPage()
   await usersPage.editUser('john@google.com', 'ChangedFirstName')
   await usersPage.navigateToUsersPage()
-  expect(`text="${users[0].Email}"`).toBeVisible()
-  expect(`text="ChangedFirstName"`).toBeVisible()
-  expect(`text="${users[0].LastName}"`).toBeVisible()
-  expect(`text="${users[0].FirstName}"`).not.toBeVisible()  
+  await expect(`text="${users[0].Email}"`).toBeVisible()
+  await expect(`text="ChangedFirstName"`).toBeVisible()
+  await expect(`text="${users[0].LastName}"`).toBeVisible()
+  await expect(`text="${users[0].FirstName}"`).not.toBeVisible()  
 })
 
 test("edit user from create form", async ({ page }) => {
@@ -120,10 +120,10 @@ test("edit user from create form", async ({ page }) => {
   await usersPage.clickShowButton()
   await usersPage.editUserClickingEditButton('ChangedFirstName')
   await usersPage.navigateToUsersPage()
-  expect(`text="useremail@gmail.com"`).toBeVisible()
-  expect(`text="ChangedFirstName"`).toBeVisible()
-  expect(`text="UserLastName"`).toBeVisible()
-  expect(`text="UserFirstName"`).not.toBeVisible() 
+  await expect(`text="useremail@gmail.com"`).toBeVisible()
+  await expect(`text="ChangedFirstName"`).toBeVisible()
+  await expect(`text="UserLastName"`).toBeVisible()
+  await expect(`text="UserFirstName"`).not.toBeVisible() 
 })
 
 test("negative - edit user", async ({ page }) => {
@@ -133,7 +133,7 @@ test("negative - edit user", async ({ page }) => {
   await loginPage.login('Username', 'Password')
   await usersPage.navigateToUsersPage()
   await usersPage.editUser('john@google.com', '')
-  expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
+  await expect(`text="The form is not valid. Please check for errors"`).toBeVisible()
 })
 
 test("delete user", async ({ page }) => {
@@ -144,9 +144,9 @@ test("delete user", async ({ page }) => {
   await usersPage.navigateToUsersPage()
   await usersPage.deleteUser('john@google.com')
   await usersPage.navigateToUsersPage()
-  expect(`text="${users[0].Email}"`).not.toBeVisible()
-  expect(`text="${users[0].FirstName}"`).not.toBeVisible()
-  expect(`text="${users[0].LastName}"`).not.toBeVisible()
+  await expect(`text="${users[0].Email}"`).not.toBeVisible()
+  await expect(`text="${users[0].FirstName}"`).not.toBeVisible()
+  await expect(`text="${users[0].LastName}"`).not.toBeVisible()
 })
 
 test("delete all user", async ({ page }) => {
@@ -157,5 +157,5 @@ test("delete all user", async ({ page }) => {
   await usersPage.navigateToUsersPage()
   await usersPage.deleteAllUsers()
   await usersPage.navigateToUsersPage()
-  expect(`text="No Users yet."`).toBeVisible()
+  await expect(`text="No Users yet."`).toBeVisible()
 })

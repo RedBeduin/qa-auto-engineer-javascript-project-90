@@ -1,4 +1,4 @@
-import { test } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 import { LabelsPage } from './pages/labels-page.jsx'
 import textVault from '../__fixtures__/text-vault.jsx'
 import labels from '../__fixtures__/labels.jsx'
@@ -9,7 +9,7 @@ test('create labels', async ({ page }) => {
   await labelsPage.login('username', 'password')
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.createNewLabel('TestLabel')
-  expect(`text="TestLabel"`).toBeVisible()
+  await expect(`text="TestLabel"`).toBeVisible()
 });
 
 test('labels list', async ({ page }) => {
@@ -28,9 +28,9 @@ test('menu of edition of label', async ({ page }) => {
   await labelsPage.login('username', 'password')
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.openCard('1')
-  expect(`[aria-label="Name"]`).toBeVisible()
-  expect(`[aria-label="Save"]`).toBeVisible()
-  expect(`[aria-label="Delete"]`).toBeVisible()
+  await expect(`[aria-label="Name"]`).toBeVisible()
+  await expect(`[aria-label="Save"]`).toBeVisible()
+  await expect(`[aria-label="Delete"]`).toBeVisible()
 })
 
 test('edit labels', async ({ page }) => {
@@ -39,7 +39,7 @@ test('edit labels', async ({ page }) => {
   await labelsPage.login('username', 'password')
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.editLabelName('1', 'ChangedName')
-  expect(`text="ChangedName"`).toBeVisible()
+  await expect(`text="ChangedName"`).toBeVisible()
 })
 
 test('edit labels from summary screen', async ({ page }) => {
@@ -49,7 +49,7 @@ test('edit labels from summary screen', async ({ page }) => {
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.createNewLabel('TestLabel')
   await labelsPage.showLabelSummaryAndEditLabelName('6', 'ChangedName')
-  expect(`text="ChangedName"`).toBeVisible()
+  await expect(`text="ChangedName"`).toBeVisible()
 })
 
 test('delete labels', async ({ page }) => {
@@ -58,10 +58,10 @@ test('delete labels', async ({ page }) => {
   await labelsPage.login('username', 'password')
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.deleteLabelsAndCancelDeletion([textVault.labelsForDeletion1[0]])
-  expect(`text="${textVault.labelsForDeletion1[0]}"`).toBeVisible()
+  await expect(`text="${textVault.labelsForDeletion1[0]}"`).toBeVisible()
   await labelsPage.deleteLabels([textVault.labelsForDeletion2[0], labelsForDeletion3[0]])
-  expect(`text="${textVault.labelsForDeletion2[0]}"`).not.toBeVisible() 
-  expect(`text="${textVault.labelsForDeletion3[0]}"`).not.toBeVisible()
+  await expect(`text="${textVault.labelsForDeletion2[0]}"`).not.toBeVisible() 
+  await expect(`text="${textVault.labelsForDeletion3[0]}"`).not.toBeVisible()
 })
 
 test('delete all labels', async ({ page }) => {
