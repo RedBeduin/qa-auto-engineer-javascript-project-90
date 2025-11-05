@@ -54,7 +54,7 @@ export class LabelsPage {
   }
 
   async deleteLabels(labelsArr) {
-    labelsArr.map((labels) => {await `row[name="Select this row ${labels}"]`.getByRole("checkbox").check()})   
+    labelsArr.map(async(labels) => {await `row[name="Select this row ${labels}"]`.getByRole("checkbox").check()})   
     await this.page.click(`[aria-label="Delete"]`)
   }
 

@@ -1,4 +1,4 @@
-export default class StatusesPage {
+export class StatusPage {
   constructor(page) {
     this.page = page;
   }
