@@ -1,15 +1,34 @@
-import textVault from '../../__fixtures__/text-vault.jsx'
-
 export class PersonAccPage {
   constructor(page) {
     this.page = page
   }
 
-  welcomeText = `text="${textVault.welcomeTextPersonAccPage}"`
-  logout = `text="Logout"`
-  profile = `[aria-label="Profile]`
-  menuUsers = `menuitem[name="Users"]`
-  menuStatuses = `menuitem[name="Task statuses"]`
-  menuLabels = `menuitem[name="Labels"]`
-  menuTasks = `menuitem[name="Tasks"]`
+  async navigateToMainPage() {
+    await this.page.goto(`http://localhost:5173`)
+  }
+
+  async logOut() {
+    await this.page.click(`[aria-label="Profile"]`)
+    await this.page.click(`text="Logout"`)
+  }
+
+  async clickProfile() {
+    await this.page.click(`[aria-label="Profile"]`)
+  }
+
+  async clickUsersOption() {
+    await this.page.click(`menuitem[name="Users"]`)
+  }
+
+  async clickStatusesOption() {
+    await this.page.click(`menuitem[name="Task statuses"]`)
+  }
+
+  async clickLabelsOption() {
+    await this.page.click(`menuitem[name="Labels"]`)
+  }
+
+  async clickTasksOption() {
+    await this.page.click(`menuitem[name="Tasks"]`)
+  }
 }

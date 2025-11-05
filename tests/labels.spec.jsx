@@ -1,126 +1,74 @@
 import { test } from '@playwright/test'
-import { LoginPage } from './pages/login-page.jsx'
 import { LabelsPage } from './pages/labels-page.jsx'
 import textVault from '../__fixtures__/text-vault.jsx'
-import { PersonAccPage } from './pages/person-acc-page.jsx'
-import {
-  inputField,
-  checkField,
-  click,
-  checkFieldByText,
-  checkCheckbox,
-  checkFieldByTextNotVisible,
-  openCard,
-} from './func.jsx'
+import labels from '../__fixtures__/labels.jsx'
 
 test('create labels', async ({ page }) => {
-  await page.goto('http://localhost:5173/#/login')
-  const loginPage = new LoginPage(page)
-  const personAccPage = new PersonAccPage(page)
-  await inputField(loginPage.userlogin, textVault.userlogin)
-  await inputField(loginPage.password, textVault.password)
-  await click(loginPage.signIn)
-  await click(personAccPage.menuLabels)
   const labelsPage = new LabelsPage(page)
-  await click(labelsPage.createLabelsButton)
-  await checkField(labelsPage.createLabelsName)
-  await inputField(labelsPage.createLabelsName, textVault.createLabelsName)
-  await click(labelsPage.saveStatus)
-  await checkField(labelsPage.saveSuccess)
+  await labelsPage.navigateToLoginPage()
+  await labelsPage.login('username', 'password')
+  await labelsPage.clickLabelsOptionInMainMenu()
+  await labelsPage.createNewLabel('TestLabel')
+  expect(`text="TestLabel"`).toBeVisible()
 });
 
 test('labels list', async ({ page }) => {
-  await page.goto('http://localhost:5173/#/login')
-  const loginPage = new LoginPage(page)
-  const personAccPage = new PersonAccPage(page)
-  await inputField(loginPage.userlogin, textVault.userlogin)
-  await inputField(loginPage.password, textVault.password)
-  await click(loginPage.signIn)
-  await click(personAccPage.menuLabels)
   const labelsPage = new LabelsPage(page)
-  await labelsPage.checkLabels(page)
+  await labelsPage.navigateToLoginPage()
+  await labelsPage.login('username', 'password')
+  await labelsPage.clickLabelsOptionInMainMenu()
+  labels.map(async(label) => {
+    await expect(`text=${label.Name}, exact=true`).toBeVisible()
+  })
 })
 
-test('editing from labels', async ({ page }) => {
-  await page.goto('http://localhost:5173/#/login')
-  const loginPage = new LoginPage(page)
-  const personAccPage = new PersonAccPage(page)
-  await inputField(loginPage.userlogin, textVault.userlogin)
-  await inputField(loginPage.password, textVault.password)
-  await click(loginPage.signIn)
-  await click(personAccPage.menuLabels)
+test('menu of edition of label', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
-  await openCard(page, '1')
-  await checkField(labelsPage.createLabelsName)
-  await checkField(labelsPage.saveDeleteButton)
+  await labelsPage.navigateToLoginPage()
+  await labelsPage.login('username', 'password')
+  await labelsPage.clickLabelsOptionInMainMenu()
+  await labelsPage.openCard('1')
+  expect(`[aria-label="Name"]`).toBeVisible()
+  expect(`[aria-label="Save"]`).toBeVisible()
+  expect(`[aria-label="Delete"]`).toBeVisible()
 })
 
 test('edit labels', async ({ page }) => {
-  await page.goto('http://localhost:5173/#/login')
-  const loginPage = new LoginPage(page)
-  const personAccPage = new PersonAccPage(page)
-  await inputField(loginPage.userlogin, textVault.userlogin)
-  await inputField(loginPage.password, textVault.password)
-  await click(loginPage.signIn)
-  await click(personAccPage.menuLabels)
   const labelsPage = new LabelsPage(page)
-  await openCard(page, '1')
-  await inputField(labelsPage.createLabelsName, textVault.editLabelsName)
-  await click(labelsPage.saveStatus)
-  await checkFieldByText(textVault.editLabelsName, page)
+  await labelsPage.navigateToLoginPage()
+  await labelsPage.login('username', 'password')
+  await labelsPage.clickLabelsOptionInMainMenu()
+  await labelsPage.editLabelName('1', 'ChangedName')
+  expect(`text="ChangedName"`).toBeVisible()
 })
 
-test('edit labels from create', async ({ page }) => {
-  await page.goto('http://localhost:5173/#/login')
-  const loginPage = new LoginPage(page)
-  const personAccPage = new PersonAccPage(page)
-  await inputField(loginPage.userlogin, textVault.userlogin)
-  await inputField(loginPage.password, textVault.password)
-  await click(loginPage.signIn)
-  await click(personAccPage.menuLabels)
+test('edit labels from summary screen', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
-  await click(labelsPage.createLabelsButton)
-  await checkField(labelsPage.createLabelsName)
-  await inputField(labelsPage.createLabelsName, textVault.createLabelsName)
-  await click(labelsPage.saveStatus)
-  await click(labelsPage.showButtonCreateStatus)
-  await click(labelsPage.editButton)
-  await inputField(labelsPage.createLabelsName, textVault.editLabelsName)
-  await click(labelsPage.saveStatus)
-  await checkFieldByText(textVault.editLabelsName, page)
+  await labelsPage.navigateToLoginPage()
+  await labelsPage.login('username', 'password')
+  await labelsPage.clickLabelsOptionInMainMenu()
+  await labelsPage.createNewLabel('TestLabel')
+  await labelsPage.showLabelSummaryAndEditLabelName('6', 'ChangedName')
+  expect(`text="ChangedName"`).toBeVisible()
 })
 
 test('delete labels', async ({ page }) => {
-  await page.goto('http://localhost:5173/#/login')
-  const loginPage = new LoginPage(page)
-  const personAccPage = new PersonAccPage(page)
-  await inputField(loginPage.userlogin, textVault.userlogin)
-  await inputField(loginPage.password, textVault.password)
-  await click(loginPage.signIn)
-  await click(personAccPage.menuLabels)
   const labelsPage = new LabelsPage(page)
-  await checkCheckbox(labelsPage.checkLabels1)
-  await click(labelsPage.deleteButton)
-  await click(labelsPage.undoButton)
-  await checkFieldByText(textVault.labelsForDeletion1[0], page)
-  await checkCheckbox(labelsPage.checkLabels2)
-  await checkCheckbox(labelsPage.checkLabels3)
-  await click(labelsPage.deleteButton)
-  await checkFieldByTextNotVisible(textVault.labelsForDeletion2[0], page)
-  await checkFieldByTextNotVisible(textVault.labelsForDeletion3[0], page)
+  await labelsPage.navigateToLoginPage()
+  await labelsPage.login('username', 'password')
+  await labelsPage.clickLabelsOptionInMainMenu()
+  await labelsPage.deleteLabelsAndCancelDeletion([textVault.labelsForDeletion1[0]])
+  expect(`text="${textVault.labelsForDeletion1[0]}"`).toBeVisible()
+  await labelsPage.deleteLabels([textVault.labelsForDeletion2[0], labelsForDeletion3[0]])
+  expect(`text="${textVault.labelsForDeletion2[0]}"`).not.toBeVisible() 
+  expect(`text="${textVault.labelsForDeletion3[0]}"`).not.toBeVisible()
 })
 
 test('delete all labels', async ({ page }) => {
-  await page.goto('http://localhost:5173/#/login')
-  const loginPage = new LoginPage(page)
-  const personAccPage = new PersonAccPage(page)
-  await inputField(loginPage.userlogin, textVault.userlogin)
-  await inputField(loginPage.password, textVault.password)
-  await click(loginPage.signIn)
-  await click(personAccPage.menuLabels)
   const labelsPage = new LabelsPage(page)
-  await checkCheckbox(labelsPage.checkEach)
-  await checkField(labelsPage.labelSelected)
-  await click(labelsPage.deleteButton)
-  await checkField(labelsPage.noLabelsStatus)
+  await labelsPage.navigateToLoginPage()
+  await labelsPage.login('username', 'password')
+  await labelsPage.clickLabelsOptionInMainMenu()
+  await labelsPage.deleteAllLabels()
+  await this.page.check(`text="No Label yet."`)
 })  

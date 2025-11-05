@@ -27,11 +27,21 @@ export default class StatusesPage {
     return await this.page.waitForSelector(`text="${name}"`);
   }
 
-  async editStatus(currentName, newName) {
+  async editStatus(currentName, newName, newSlug) {
     await this.clickStatus(currentName);
     await this.fillNameInput(newName);
+    await this.fillSlugInput(newSlug)
     this.clickSaveButton();
     return await this.page.waitForSelector(`text="${newName}"`);
+  }
+
+  async editStatusAfterCreation(newName, newSlug) {
+    await this.clickShowButton()
+    await this.clickEditButton()
+    await this.fillNameInput(newName)
+    await this.fillSlugInput(newSlug)
+    this.clickSaveButton()
+    return await this.page.waitForSelector(`text="${newName}"`)
   }
 
   async deleteStatus(name) {
@@ -66,6 +76,14 @@ export default class StatusesPage {
 
   async clickSaveButton() {
     await this.page.click('[aria-label="Save"]');
+  }
+
+  async clickShowButton() {
+    await this.page.click(`[aria-label="Show"]`)
+  }
+
+  async clickEditButton() {
+    await this.page.click(`[aria-label="Edit"]`)
   }
 
   async clickStatus(name) {
