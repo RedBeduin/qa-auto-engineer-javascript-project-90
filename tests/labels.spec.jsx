@@ -6,16 +6,16 @@ import labels from '../__fixtures__/labels.jsx'
 test('create labels', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
   await labelsPage.navigateToLoginPage()
-  await labelsPage.login('username', 'password')
+  await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.clickLabelsOptionInMainMenu()
-  await labelsPage.createNewLabel('TestLabel')
-  await expect(`text="TestLabel"`).toBeVisible()
+  await labelsPage.createNewLabel(textVault.labelName)
+  await expect(`text="${labelName}"`).toBeVisible()
 });
 
 test('labels list', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
   await labelsPage.navigateToLoginPage()
-  await labelsPage.login('username', 'password')
+  await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.clickLabelsOptionInMainMenu()
   labels.map(async(label) => {
     await expect(`text=${label.Name}, exact=true`).toBeVisible()
@@ -25,7 +25,7 @@ test('labels list', async ({ page }) => {
 test('menu of edition of label', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
   await labelsPage.navigateToLoginPage()
-  await labelsPage.login('username', 'password')
+  await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.openCard('1')
   await expect(`[aria-label="Name"]`).toBeVisible()
@@ -36,26 +36,26 @@ test('menu of edition of label', async ({ page }) => {
 test('edit labels', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
   await labelsPage.navigateToLoginPage()
-  await labelsPage.login('username', 'password')
+  await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.clickLabelsOptionInMainMenu()
-  await labelsPage.editLabelName('1', 'ChangedName')
-  await expect(`text="ChangedName"`).toBeVisible()
+  await labelsPage.editLabelName('1', textVault.changedLabelName)
+  await expect(`text="${textVault.changedLabelName}"`).toBeVisible()
 })
 
 test('edit labels from summary screen', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
   await labelsPage.navigateToLoginPage()
-  await labelsPage.login('username', 'password')
+  await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.clickLabelsOptionInMainMenu()
-  await labelsPage.createNewLabel('TestLabel')
-  await labelsPage.showLabelSummaryAndEditLabelName('6', 'ChangedName')
-  await expect(`text="ChangedName"`).toBeVisible()
+  await labelsPage.createNewLabel(textVault.labelName)
+  await labelsPage.showLabelSummaryAndEditLabelName('6', textVault.changedLabelName)
+  await expect(`text="${textVault.changedLabelName}"`).toBeVisible()
 })
 
 test('delete labels', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
   await labelsPage.navigateToLoginPage()
-  await labelsPage.login('username', 'password')
+  await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.deleteLabelsAndCancelDeletion([textVault.labelsForDeletion1[0]])
   await expect(`text="${textVault.labelsForDeletion1[0]}"`).toBeVisible()
@@ -67,7 +67,7 @@ test('delete labels', async ({ page }) => {
 test('delete all labels', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
   await labelsPage.navigateToLoginPage()
-  await labelsPage.login('username', 'password')
+  await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.clickLabelsOptionInMainMenu()
   await labelsPage.deleteAllLabels()
   await this.page.check(`text="No Label yet."`)
