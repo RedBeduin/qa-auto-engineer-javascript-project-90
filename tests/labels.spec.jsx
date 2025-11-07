@@ -18,7 +18,7 @@ test('labels list', async ({ page }) => {
   await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.navigateToLabelsPage()
   labels.map(async(label) => {
-    await expect(page.locator(`text="${label.Name}"[exact=true]`)).toBeVisible()
+    await expect(page.locator(`text="${label.Name}"`)).toBeVisible()
   })
 })
 
