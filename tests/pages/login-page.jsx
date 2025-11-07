@@ -23,4 +23,8 @@ export class LoginPage {
     await this.page.fill('input[name="password"', password)
     await this.page.click('text="Sign in"')
   }
+
+  async waitForSelector(selector) {
+    await this.page.waitForSelector(selector)
+  }
 }
