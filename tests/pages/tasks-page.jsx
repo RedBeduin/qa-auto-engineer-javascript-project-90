@@ -12,10 +12,10 @@ export class TasksPage {
   } 
 
   async createTask(assignee, title, content, statusOption, label) {
-    await this.page.click(`[aria-label="Create", exact=true]`)
+    await this.page.click(`[aria-label="Create"][exact=true]`)
     await this.page.selectOption(`combobox[name="Assignee"]`, assignee)
-    await this.page.fill(`[aria-label="Title", exact=true]`, title)
-    await this.page.fill(`[aria-label="Content", exact=true]`, content)
+    await this.page.fill(`[aria-label="Title"][exact=true]`, title)
+    await this.page.fill(`[aria-label="Content"][exact=true]`, content)
     await this.page.selectOption(`combobox[name="Status"]`, statusOption)
     await this.page.selectOption(`combobox[name="Label"]`, label)
     await this.page.click(`[aria-label="Save"]`)
@@ -23,23 +23,23 @@ export class TasksPage {
 
   async changeTaskName(taskNumber, newTitle) {
     const nameOfEditTaskButton = `textVault.task${taskNumber}`
-    await this.page.click(`button[name="${eval(nameOfEditTaskButton)}"], [aria-label="Edit"]`)
-    await this.page.fill(`[aria-label="Title", exact=true]`, newTitle)
+    await this.page.click(`button[name="${eval(nameOfEditTaskButton)}"][aria-label="Edit"]`)
+    await this.page.fill(`[aria-label="Title"][exact=true]`, newTitle)
     await this.page.click(`[aria-label="Save"]`) 
   }
   
   async showTask(taskNumber) {
     const nameOfShowTaskButton = `textVault.task${taskNumber}`
-    await this.page.click(`button[name="${eval(nameOfShowTaskButton)}"], [aria-label="Show"]`)
+    await this.page.click(`button[name="${eval(nameOfShowTaskButton)}"][aria-label="Show"]`)
   }
 
   async showTaskAndEditAssigneeFirstName(taskNumber, newFirstName) {
     const nameOfShowTaskButton = `textVault.task${taskNumber}`
-    await this.page.click(`button[name="${eval(nameOfShowTaskButton)}"], [aria-label="Show"]`)
+    await this.page.click(`button[name="${eval(nameOfShowTaskButton)}"][aria-label="Show"]`)
     await this.page.click('text=@')
     await this.page.click(`[aria-label="Edit"]`)
     const saveButton = await this.page.waitForSelector('[aria-label="Save"]')
-    await this.page.fill('input[name="firstName"', newFirstName)
+    await this.page.fill('input[name="firstName"]', newFirstName)
     await saveButton.click()
   }
 
@@ -49,7 +49,7 @@ export class TasksPage {
 
   async deleteTask(taskNumber) {
     const nameOfEditTaskButton = `textVault.task${taskNumber}`
-    await this.page.click(`button[name="${eval(nameOfEditTaskButton)}"], [aria-label="Edit"]`)
+    await this.page.click(`button[name="${eval(nameOfEditTaskButton)}"][aria-label="Edit"]`)
     await this.page.click(`[aria-label="Delete"]`)
   }
 

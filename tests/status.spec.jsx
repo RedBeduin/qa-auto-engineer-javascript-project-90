@@ -20,10 +20,10 @@ test("status list", async ({ page }) => {
   await statusPage.navigateToStatusesPage()
   for(const taskStatuse of taskStatuses) {
     await expect(
-      page.locator(`[name="${taskStatuse.Name}", exact=true]`)
+      page.locator(`[name="${taskStatuse.Name}"][exact=true]`)
     ).toBeVisible()
     await expect(
-      page.locator(`[name="${taskStatuse.Slug}", exact=true]`)
+      page.locator(`[name="${taskStatuse.Slug}"][exact=true]`)
     ).toBeVisible()
   } 
 })

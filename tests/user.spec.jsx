@@ -18,7 +18,7 @@ test("login", async ({ page }) => {
   await loginPage.navigateToLoginPage()
   await loginPage.login(textVault.username, textVault.password)
   await expect('text="Welcome to the administration"').toBeVisible()
-  await expect('text="Lorom ipsum sic dolor amet..."').toBeVisible()
+  await expect('text="Lorem ipsum sic dolor amet..."').toBeVisible()
 })
 
 test("negative - login", async ({ page }) => {
@@ -37,6 +37,7 @@ test("logout", async ({ page }) => {
   const personAccPage = new PersonAccPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.login(textVault.username, textVault.password)
+  await expect('text="Welcome to the administration"').toBeVisible()
   await expect(page.locator(`text="Lorem ipsum sic dolor amet..."`)).toBeVisible()
   await personAccPage.logOut()
   await expect(page.locator(`input[name="username"]`)).toBeVisible()

@@ -20,7 +20,7 @@ export class LoginPage {
   }
 
   async loginWithoutUsername(password) {
-    await this.page.fill('input[name="password"', password)
+    await this.page.fill('input[name="password"]', password)
     await this.page.click('text="Sign in"')
   }
 
