@@ -21,10 +21,6 @@ export class LabelsPage {
     await this.page.click(`text="${name}"`)
   }
 
-  async clickLabelsOptionInMainMenu() {
-    await this.page.click(`menuitem[name="Labels"]`)
-  } 
-
   async createNewLabel(name) {
     await this.page.click(`[aria-label="Create"][exact=true]`)
     await this.page.fill(`[aria-label="Name"]`, name)
