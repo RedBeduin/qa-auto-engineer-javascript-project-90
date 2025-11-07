@@ -12,10 +12,10 @@ export class TasksPage {
   } 
 
   async createTask(assignee, title, content, statusOption, label) {
-    await this.page.click(`[aria-label="Create"][exact=true]`)
+    await this.page.click(`[aria-label="Create"]`)
     await this.page.selectOption(`combobox[name="Assignee"]`, assignee)
-    await this.page.fill(`[aria-label="Title"][exact=true]`, title)
-    await this.page.fill(`[aria-label="Content"][exact=true]`, content)
+    await this.page.fill(`[aria-label="Title"]`, title)
+    await this.page.fill(`[aria-label="Content"]`, content)
     await this.page.selectOption(`combobox[name="Status"]`, statusOption)
     await this.page.selectOption(`combobox[name="Label"]`, label)
     await this.page.click(`[aria-label="Save"]`)
@@ -24,7 +24,7 @@ export class TasksPage {
   async changeTaskName(taskNumber, newTitle) {
     const nameOfEditTaskButton = `textVault.task${taskNumber}`
     await this.page.click(`button[name="${eval(nameOfEditTaskButton)}"][aria-label="Edit"]`)
-    await this.page.fill(`[aria-label="Title"][exact=true]`, newTitle)
+    await this.page.fill(`[aria-label="Title"]`, newTitle)
     await this.page.click(`[aria-label="Save"]`) 
   }
   
