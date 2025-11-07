@@ -36,7 +36,7 @@ export class TasksPage {
   async showTaskAndEditAssigneeFirstName(taskNumber, newFirstName) {
     const nameOfShowTaskButton = `textVault.task${taskNumber}`
     await this.page.click(`button[name="${eval(nameOfShowTaskButton)}"], [aria-label="Show"]`)
-    await this.page.click(`text="@"`)
+    await this.page.click('text=@')
     await this.page.click(`[aria-label="Edit"]`)
     const saveButton = await this.page.waitForSelector('[aria-label="Save"]')
     await this.page.fill('input[name="firstName"', newFirstName)
@@ -44,7 +44,7 @@ export class TasksPage {
   }
 
   async clickAssigneeEmail() {
-    await this.page.click(`text="@"`)
+    await this.page.click('text=@')
   }
 
   async deleteTask(taskNumber) {
