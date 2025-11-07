@@ -10,18 +10,15 @@ test('application display', async ({ page }) => {
   await loginPage.navigateToLoginPage()
   await expect(page.locator(`input[name="username"]`)).toBeVisible()
   await expect(page.locator(`input[name="password"]`)).toBeVisible()
-  const signInButton = await page.waitForSelector('text="Sign in"')
-  expect(signInButton).toBeVisible()
+  await expect(page.locator('text="Sign in"')).toBeVisible()
 })
 
 test("login", async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.login(textVault.username, textVault.password)
-  const mainWelcomeText = await page.waitForSelector('text="Welcome to the administration"')
-  expect(mainWelcomeText).toBeVisible()
-  const additionalWelcomeText = await page.waitForSelector('text="Lorem ipsum sic dolor amet..."')
-  expect(additionalWelcomeText).toBeVisible()
+  await expect('text="Welcome to the administration"').toBeVisible()
+  await expect('text="Lorom ipsum sic dolor amet..."').toBeVisible()
 })
 
 test("negative - login", async ({ page }) => {
@@ -54,8 +51,7 @@ test("create user", async ({ page }) => {
   await loginPage.login(textVault.username, textVault.password)
   await usersPage.navigateToUsersPage()
   await usersPage.createUser('email@gmail.com', textVault.userFirstName, textVault.userLastName)
-  const userCreatedText = await page.waitForSelector('text="Element created"')
-  expect(userCreatedText).toBeVisible()
+  await expect(page.locator(`text="Element created"`)).toBeVisible()
   await expect(page.locator(`text="email@gmail.com"`)).toBeVisible() 
   await expect(page.locator(`text="${textVault.userFirstName}"`)).toBeVisible()
   await expect(page.locator(`text="${textVault.userLastName}"`)).toBeVisible()
