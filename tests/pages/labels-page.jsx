@@ -22,13 +22,13 @@ export class LabelsPage {
   }
 
   async createNewLabel(name) {
-    await this.page.click(`[aria-label="Create"][exact=true]`)
+    await this.page.click(`[aria-label="Create"]`)
     await this.page.fill(`[aria-label="Name"]`, name)
     await this.page.click(`[aria-label="Save"]`) 
   }
   
   async openCard(id) {
-    await this.page.click(`cell[name="${id}"][exact=true]`)
+    await this.page.click(`cell[name="${id}"]`)
   }
 
   async editLabelName(id, newName) {

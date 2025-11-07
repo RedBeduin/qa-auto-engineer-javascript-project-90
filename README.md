@@ -1,3 +1,7 @@
+## Hexlet check status
+
+[![hexlet-check](https://github.com/RedBeduin/qa-auto-engineer-javascript-project-90/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/RedBeduin/qa-auto-engineer-javascript-project-90/actions/workflows/hexlet-check.yml)
+
 ### Educational project: Testing of the Kanban-board
 
 The development of the project includes:
