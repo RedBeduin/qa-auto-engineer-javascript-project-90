@@ -9,7 +9,7 @@ test('create labels', async ({ page }) => {
   await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.navigateToLabelsPage()
   await labelsPage.createNewLabel(textVault.labelName)
-  await expect(page.locator(`text="${labelName}"`)).toBeVisible()
+  await expect(page.locator(`text="${textVault.labelName}"`)).toBeVisible()
 });
 
 test('labels list', async ({ page }) => {
