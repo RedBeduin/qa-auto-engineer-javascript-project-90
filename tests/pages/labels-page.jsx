@@ -23,7 +23,7 @@ export class LabelsPage {
 
   async createNewLabel(name) {
     await this.page.click(`[aria-label="Create"]`)
-    await this.page.fill(`[aria-label="Name"]`, name)
+    await this.page.fill(`input[type="text"]`, name)
     await this.page.click(`[aria-label="Save"]`) 
   }
   

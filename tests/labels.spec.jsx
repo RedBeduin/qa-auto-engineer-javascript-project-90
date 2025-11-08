@@ -28,7 +28,7 @@ test('menu of edition of label', async ({ page }) => {
   await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.navigateToLabelsPage()
   await labelsPage.openCard('1')
-  await expect(page.locator('[aria-label="Name"]')).toBeVisible()
+  await expect(page.locator('input[type="text"]')).toBeVisible()
   await expect(page.locator('[aria-label="Save"]')).toBeVisible()
   await expect(page.locator('[aria-label="Delete"]')).toBeVisible()
 })
