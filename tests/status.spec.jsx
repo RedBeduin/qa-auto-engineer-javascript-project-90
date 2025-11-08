@@ -19,12 +19,8 @@ test("status list", async ({ page }) => {
   await statusPage.login(textVault.username, textVault.password)
   await statusPage.navigateToStatusesPage()
   for(const taskStatuse of taskStatuses) {
-    await expect(
-      page.locator(`[name="${taskStatuse.Name}"]`)
-    ).toBeVisible()
-    await expect(
-      page.locator(`[name="${taskStatuse.Slug}"]`)
-    ).toBeVisible()
+    await expect(page.locator(`[name="${taskStatuse.Name}"]`)).toBeVisible()
+    await expect(page.locator(`[name="${taskStatuse.Slug}"]`)).toBeVisible()
   } 
 })
 
