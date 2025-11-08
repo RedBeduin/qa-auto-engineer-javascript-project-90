@@ -9,19 +9,19 @@ export class LoginPage {
   }
   
   async login(username, password) {
-    await this.page.fill('input[name="username"]', username)
-    await this.page.fill('input[name="password"]', password)
-    await this.page.click('text="Sign in"')
+    await this.page.fill('input[type="text"]', username)
+    await this.page.fill('input[type="password"]', password)
+    await this.page.click('button[type="submit"]')
   }
   
   async loginWithoutPassword(username) {
-    await this.page.fill('input[name="username"]', username)
-    await this.page.click('text="Sign in"')
+    await this.page.fill('input[type="text"]', username)
+    await this.page.click('button[type="submit"]')
   }
 
   async loginWithoutUsername(password) {
-    await this.page.fill('input[name="password"]', password)
-    await this.page.click('text="Sign in"')
+    await this.page.fill('input[type="password"]', password)
+    await this.page.click('button[type="submit"]')
   }
 
   async waitForSelector(selector) {

@@ -8,13 +8,13 @@ export class LabelsPage {
   }
 
   async login(username, password) {
-    await this.page.fill('input[name="username"]', username)
-    await this.page.fill('input[name="password"]', password)
-    await this.page.click('text="Sign in"')
+    await this.page.fill('input[type="text"]', username)
+    await this.page.fill('input[type="password"]', password)
+    await this.page.click('button[type="submit"]')
   }
   
   async navigateToLabelsPage() {
-    await this.page.goto('http://localhost:5173/labels')
+    await this.page.goto('http://localhost:5173/#/labels')
   }
 
   async clickLabel(name) {
