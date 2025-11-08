@@ -18,10 +18,9 @@ test('labels list', async ({ page }) => {
   await labelsPage.navigateToLoginPage()
   await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.navigateToLabelsPage()
-  await labels.map(async(label) => {
-    await expect(page.locator(`text=${label.Name}`)).toBeVisible()
-    return label
-  })
+  for(const label of labels) {
+    await expect(page.locator(`text="${label.Name}"`)).toBeVisible()
+  }
 })
 
 test('menu of edition of label', async ({ page }) => {
