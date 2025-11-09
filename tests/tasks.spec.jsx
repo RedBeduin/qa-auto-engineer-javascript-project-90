@@ -14,8 +14,7 @@ test('create tasks', async ({ page }) => {
   await tasksPage.navigateToTasksPage()
   await expect(page.locator(`text="Title"`)).toBeVisible()
   await expect(page.locator(`text="Content"`)).toBeVisible()
-}); 
-
+})
 
 test('tasks list', async ({ page }) => {
   const loginPage = new LoginPage(page)
@@ -26,7 +25,7 @@ test('tasks list', async ({ page }) => {
   for(const task of tasks) {
     await expect(page.locator(`text="${task.name}"`)).toBeVisible()
   }  
-})  
+})
 
 test('menu of edition of task', async({ page }) => {
   const loginPage = new LoginPage(page)
@@ -35,13 +34,13 @@ test('menu of edition of task', async({ page }) => {
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
   await tasksPage.showTask('1')
-  await expect(page.locator(`div[aria-labelledby=":r39:-label :r39:"]`)).toBeVisible({ timeout: 100000, })
-  await expect(page.locator(`input[name="title"]`)).toBeVisbile({ timeout: 100000, })
-  await expect(page.locator(`textarea[name="content"]`)).toBeVisible({ timeout: 100000, })
-  await expect(page.locator(`div[aria-labelledby=":r3n:-label :r3n:"]`)).toBeVisible({ timeout: 100000, })
-  await expect(page.locator(`div[aria-labelledby=":r3t:-outlined-label :r3t:"]`)).toBeVisible({ timeout: 100000, })
-  await expect(page.locator(`[disabled][aria-label="Save"]`)).toBeVisible({ timeout: 100000, })
-  await expect(page.locator(`[aria-label="Delete"]`)).toBeVisible({ timeout: 100000, })
+  await expect(page.locator(`div[role="combobox"]:nth-child(1)`)).toBeVisible()
+  await expect(page.locator(`input[name="title"]`)).toBeVisbile()
+  await expect(page.locator(`textarea[name="content"]`)).toBeVisible()
+  await expect(page.locator(`div[role="combobox"]:nth-child(2)`)).toBeVisible()
+  await expect(page.locator(`div[role="combobox"]:nth-child(3)`)).toBeVisible()
+  await expect(page.locator(`[disabled][aria-label="Save"]`)).toBeVisible()
+  await expect(page.locator(`[aria-label="Delete"]`)).toBeVisible()
 })
 
 test('edit tasks', async({ page }) => {

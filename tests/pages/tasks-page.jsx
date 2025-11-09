@@ -16,7 +16,7 @@ export class TasksPage {
     await this.page.selectOption(`div[aria-labelledby=":r39:-label :r39:"]`, assignee)
     await this.page.fill(`input[name="title"]`, title)
     await this.page.fill(`textarea[name="content"]`, content)
-    await this.page.selectOption(`div[aria-labelledby=":r3n:-label :r3n:"]`, statusOption)
+    await this.page.selectOption('div[aria-labelledby=":r3n:-label :r3n:"]', statusOption)
     await this.page.selectOption(`div[aria-labelledby=":r3t:-outlined-label :r3t:"]`, label)
     await this.page.click(`[aria-label="Save"]`)
   }
