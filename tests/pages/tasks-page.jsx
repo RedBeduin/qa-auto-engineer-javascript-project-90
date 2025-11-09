@@ -13,11 +13,11 @@ export class TasksPage {
 
   async createTask(assignee, title, content, statusOption, label) {
     await this.page.click(`[aria-label="Create"]`)
-    await this.page.selectOption(`div[role="combobox"]:nth-child(1)`, assignee)
+    await this.page.selectOption(`:nth-match(div[role="combobox"], 1)`, assignee)
     await this.page.fill(`input[name="title"]`, title)
     await this.page.fill(`textarea[name="content"]`, content)
-    await this.page.selectOption('div[role="combobox"]:nth-child(2)"', statusOption)
-    await this.page.selectOption(`div[role="combobox"]:nth-child(3)`, label)
+    await this.page.selectOption(`:nth-match(div[role="combobox"], 2)`, statusOption)
+    await this.page.selectOption(`:nth-match(div[role="combobox"], 3)`, label)
     await this.page.click(`[aria-label="Save"]`)
   }
 
