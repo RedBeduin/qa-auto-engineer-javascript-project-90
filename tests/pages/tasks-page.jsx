@@ -13,7 +13,7 @@ export class TasksPage {
 
   async createTask(assigneeEmail, title, content, statusOption, labelOption) {
     await this.page.click(`[aria-label="Create"]`)
-    await this.page.click(`(//*[contains(@role, 'combobox')])[1]`)
+    await this.page.click(`#assignee_id`)
     await this.page.waitForSelector(`text="${assigneeEmail}"`)
     await this.page.click(`text="${assigneeEmail}"`)
     await this.page.fill(`input[name="title"]`, title)

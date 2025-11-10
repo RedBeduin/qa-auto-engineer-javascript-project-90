@@ -42,7 +42,7 @@ test('menu of edition of task', async({ page }) => {
   await expect(page.locator(`[disabled][aria-label="Save"]`)).toBeVisible()
   await expect(page.locator(`[aria-label="Delete"]`)).toBeVisible()
 })
-'div[aria-labelledby="status_id-label status_id"]'
+
 test('edit tasks', async({ page }) => {
   const loginPage = new LoginPage(page)
   const tasksPage = new TasksPage(page)
