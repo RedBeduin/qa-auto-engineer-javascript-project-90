@@ -14,11 +14,16 @@ export class TasksPage {
   async createTask(assigneeEmail, title, content, statusOption, labelOption) {
     await this.page.click(`[aria-label="Create"]`)
     await this.page.click(`(//*[contains(@role, 'combobox')])[1]`)
+    await this.page.waitForSelector(`text="${assigneeEmail}"`, { timeout: 90000 })
     await this.page.click(`text="${assigneeEmail}"`)
     await this.page.fill(`input[name="title"]`, title)
     await this.page.fill(`textarea[name="content"]`, content) 
-    await this.page.selectOption(`(//*[contains(@role, 'combobox')])[2]`, statusOption)
-    await this.page.selectOption(`(//*[contains(@role, 'combobox')])[3]`, labelOption)
+    await this.page.click(`(//*[contains(@role, 'combobox')])[2]`)
+    await this.page.waitForSelector(`text="${statusOption}"`, { timeout: 90000 })
+    await this.page.click(`text="${statusOption}"`)
+    await this.page.click(`(//*[contains(@role, 'combobox')])[3]`)
+    await this.page.waitForSelector(`text="${labelOption}"`, { timeout: 90000 })
+    await this.page.click(`text="${labelOption}"`)
     await this.page.click(`[aria-label="Save"]`)
   }
 
@@ -58,9 +63,5 @@ export class TasksPage {
     await this.page.selectOption(`[role="combobox"][name="Assignee"]`, { label: `${assigneeFilterOption}` })
     await this.page.selectOption(`[role="combobox"][name="Status"]`, { label: `${statusFilterOption}` })
     await this.page.selectOption(`[role="combobox"][name="Label"]`, { label: `${labelFilterOption}` })
-  }
- 
-  async waitForSelector(selector) {
-    await this.page.waitForSelector(selector);
   }
 }
