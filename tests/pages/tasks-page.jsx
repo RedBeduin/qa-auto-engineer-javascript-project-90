@@ -17,10 +17,8 @@ export class TasksPage {
     await this.page.click(`text="${assigneeEmail}"`)
     await this.page.fill(`input[name="title"]`, title)
     await this.page.fill(`textarea[name="content"]`, content) 
-    await this.page.click(`(//*[contains(@role, 'combobox')])[2]`)
-    await this.page.click(`text="${statusOption}"`) 
-    await this.page.click(`(//*[contains(@role, 'combobox')])[3]`)
-    await this.page.click(`text="${labelOption}"`)
+    await this.page.selectOption(`(//*[contains(@role, 'combobox')])[2]`, statusOption)
+    await this.page.selectOption(`(//*[contains(@role, 'combobox')])[3]`, labelOption)
     await this.page.click(`[aria-label="Save"]`)
   }
 
