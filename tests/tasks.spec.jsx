@@ -10,7 +10,7 @@ test('create tasks', async ({ page }) => {
   await loginPage.navigateToLoginPage()
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
-  await tasksPage.createTask('john@google.com', 'Title', 'Content', 'Published', 'critical')
+  await tasksPage.createTask("john@google.com", "Title", "Content", "Published", "critical")
   await tasksPage.navigateToTasksPage()
   await expect(page.locator(`text="Title"`)).toBeVisible()
   await expect(page.locator(`text="Content"`)).toBeVisible()
