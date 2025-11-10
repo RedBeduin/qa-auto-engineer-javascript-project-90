@@ -34,15 +34,15 @@ test('menu of edition of task', async({ page }) => {
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
   await tasksPage.showTask('1')
-  await expect((page.locator(`div[role="combobox"]`).all())[0]).toBeVisible()
+  await expect(page.locator(`#assignee_id`)).toBeVisible()
   await expect(page.locator(`input[name="title"]`)).toBeVisbile()
   await expect(page.locator(`textarea[name="content"]`)).toBeVisible()
-  await expect((page.locator(`div[role="combobox"]`).all())[1]).toBeVisible()
-  await expect((page.locator(`div[role="combobox"]`).all())[2]).toBeVisible()
+  await expect(page.locator(`div[aria-labelledby="status_id-label status_id"]`)).toBeVisible()
+  await expect(page.locator(`div[aria-labelledby="label_id-outlined-label label_id"]`)).toBeVisible()
   await expect(page.locator(`[disabled][aria-label="Save"]`)).toBeVisible()
   await expect(page.locator(`[aria-label="Delete"]`)).toBeVisible()
 })
-
+'div[aria-labelledby="status_id-label status_id"]'
 test('edit tasks', async({ page }) => {
   const loginPage = new LoginPage(page)
   const tasksPage = new TasksPage(page)

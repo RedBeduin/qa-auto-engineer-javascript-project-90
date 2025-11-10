@@ -11,13 +11,21 @@ export class TasksPage {
     await this.page.goto('http://localhost:5173/#/users')
   } 
 
-  async createTask(assignee, title, content, statusOption, label) {
+  async createTask(assigneeEmail, title, content, statusOption, labelOption) {
     await this.page.click(`[aria-label="Create"]`)
-    await this.page.selectOption((this.page.waitForSelector(`div[role="combobox"]`))[0], assignee)
+    await this.page.click(`#assignee_id`)
+    await this.page.waitForSelector(`text="${assigneeEmail}"`)
+    await this.page.click(`text="${assigneeEmail}"`)
     await this.page.fill(`input[name="title"]`, title)
     await this.page.fill(`textarea[name="content"]`, content)
-    await this.page.selectOption((this.page.waitForSelector(`div[role="combobox"]`))[1], statusOption)
-    await this.page.selectOption((this.page.waitForSelector(`div[role="combobox"]`))[2], label)
+    const statusInput = await this.page.waitForSelector('div[aria-labelledby="status_id-label status_id"]')
+    await this.page.click(statusInput)
+    await this.page.waitForSelector(`text="${statusOption}"`)
+    await this.page.click(`text=${statusOption}`) 
+    const labelInput = await this.page.waitForSelector('div[aria-labelledby="label_id-outlined-label label_id"]')
+    await this.page.click(labelInput)
+    await this.page.waitForSelector(`text="${labelOption}"`)
+    await this.page.click(`text="${labelOption}"`)
     await this.page.click(`[aria-label="Save"]`)
   }
 
