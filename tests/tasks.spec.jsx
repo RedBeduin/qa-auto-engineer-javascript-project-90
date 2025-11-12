@@ -10,10 +10,10 @@ test('create tasks', async ({ page }) => {
   await loginPage.navigateToLoginPage()
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
-  await tasksPage.createTask("john@google.com", "Title", "Content", "Published", "critical")
+  await tasksPage.createTask("john@google.com", "Title", "To Review")
   await tasksPage.navigateToTasksPage()
-  await expect(page.locator(`text="Title"`)).toBeVisible()
-  await expect(page.locator(`text="Content"`)).toBeVisible()
+  await expect(tasksPage.getColumn('To Review').getByText('Title')).toBeVisible()
+  await expect(tasksPage.getCard('Title')).toBeVisible()
 })
 
 test('tasks list', async ({ page }) => {
@@ -34,13 +34,13 @@ test('menu of edition of task', async({ page }) => {
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
   await tasksPage.showTask('1')
-  await expect(page.locator(`(//*[contains(@role, 'combobox')])[1]`)).toBeVisible()
+  await expect(page.getByLabel('Assignee')).toBeVisible()
   await expect(page.locator(`input[name="title"]`)).toBeVisbile()
   await expect(page.locator(`textarea[name="content"]`)).toBeVisible()
-  await expect(page.locator(`(//*[contains(@role, 'combobox')])[2]`)).toBeVisible()
-  await expect(page.locator(`(//*[contains(@role, 'combobox')])[3]`)).toBeVisible()
-  await expect(page.locator(`[disabled][aria-label="Save"]`)).toBeVisible()
-  await expect(page.locator(`[aria-label="Delete"]`)).toBeVisible()
+  await expect(page.getByLabel('Status')).toBeVisible()
+  await expect(page.getByLabel('Label')).toBeVisible()
+  await expect(page.getByRole('button', { name: "Save" })).toBeVisible()
+  await expect(page.getByRole('button', { name: "Delete" })).toBeVisible()
 })
 
 test('edit tasks', async({ page }) => {

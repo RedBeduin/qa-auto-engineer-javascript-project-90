@@ -11,21 +11,23 @@ export class TasksPage {
     await this.page.goto('http://localhost:5173/#/users')
   } 
 
-  async createTask(assigneeEmail, title, content, statusOption, labelOption) {
-    await this.page.click(`[aria-label="Create"]`)
-    await this.page.click(`(//*[contains(@role, 'combobox')])[1]`)
-    await this.page.waitForSelector(`text="${assigneeEmail}"`, { timeout: 50000, })
-    await this.page.click(`text="${assigneeEmail}"`)
-    await this.page.fill(`input[name="title"]`, title)
-    await this.page.fill(`textarea[name="content"]`, content) 
-    await this.page.click(`(//*[contains(@role, 'combobox')])[2]`)
-    await this.page.waitForSelector(`text="${statusOption}"`, { timeout: 50000, })
-    await this.page.click(`text="${statusOption}"`)
-    await this.page.waitForSelector(`(//*[contains(@role, 'combobox')])[3]`, { timeout: 50000, })
-    await this.page.click(`(//*[contains(@role, 'combobox')])[3]`)
-    await this.page.waitForSelector(`text="${labelOption}"`, { timeout: 50000, })
-    await this.page.click(`text="${labelOption}"`)
-    await this.page.click(`[aria-label="Save"]`)
+  async createTask(assigneeEmail, title, statusOption) {
+    await this.page.click('[aria-label="Create"]')
+
+    await this.page.getByLabel('Assignee').click()
+    await this.page.getByRole('option', { name: assigneeEmail }).click()
+    await this.page.locator(`input[name="title"]`).fill(title)
+    await this.page.getByLabel('Status').click()
+    await this.page.getByRole('option', { name: statusOption }).click()
+    await this.page.getByRole('button', { name: 'Save' }).click()
+  }
+
+  getCard(titleTask) {
+    return this.page.locator('.MuiCard-root', { hasText: titleTask })
+  }
+
+  getColumn(statusName) {
+    return this.page.locator('div', { hasText: statusName}, { exact: true })
   }
 
   async changeTaskName(taskNumber, newTitle) {
