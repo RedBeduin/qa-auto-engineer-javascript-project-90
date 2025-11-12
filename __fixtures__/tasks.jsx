@@ -25,11 +25,11 @@ const tasks = [
   },
   {
     name: "Task 7",
-    decription: "Description of task 7",
+    description: "Description of task 7",
   },
   {
     name: "Task 8",
-    decription: "Description of task 8",
+    description: "Description of task 8",
   },
   {
     name: "Task 9", 
@@ -37,7 +37,7 @@ const tasks = [
   },
   {
     name: "Task 10",
-    decription: "Description of task 10",
+    description: "Description of task 10",
   },
   {
     name: "Task 11 ",
