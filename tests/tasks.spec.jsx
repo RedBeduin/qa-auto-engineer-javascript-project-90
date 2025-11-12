@@ -24,6 +24,7 @@ test('tasks list', async ({ page }) => {
   await tasksPage.navigateToTasksPage()
   for(const task of tasks) {
     await expect(page.locator(`text="${task.name}"`)).toBeVisible()
+    await expect(page.locator(`text="${task.description}"`)).toBeVisible()
   }  
 })
 
