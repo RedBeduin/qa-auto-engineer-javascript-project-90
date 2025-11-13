@@ -19,9 +19,9 @@ export class TasksPage {
     await this.page.getByLabel('Assignee').click()
     await this.page.getByRole('option', { name: assigneeEmail }).click()
     await this.page.locator(`input[name="title"]`).fill(title)
-    await this.page.getByLabel('Status').click({ timeout: 20000, })
-    await this.page.getByRole('option', { name: statusOption }).click({ timeout: 20000, })
-    await this.page.getByRole('button', { name: 'Save' }).click()
+    await this.page.getByLabel('Status').click({ timeout: 10000, })
+    await this.page.getByRole('option', { name: statusOption }).click({ timeout: 10000, })
+    await this.page.getByRole('button', { name: 'Save' }).click({ timeout: 10000, })
   }
 
   getCard(titleTask) {
