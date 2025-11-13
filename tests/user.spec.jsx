@@ -25,13 +25,13 @@ test("negative - login", async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.login('', '')
-  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible({ timeout: 100000, })
+  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible()
   await loginPage.navigateToLoginPage()
   await loginPage.loginWithoutUsername(textVault.password)
-  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible({ timeout: 100000, })
+  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible()
   await loginPage.navigateToLoginPage()
   await loginPage.loginWithoutPassword(textVault.username)
-  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible({ timeout: 100000, })
+  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible()
 })
 
 test("logout", async ({ page }) => {
