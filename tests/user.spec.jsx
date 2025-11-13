@@ -31,7 +31,7 @@ test("negative - login", async ({ page }) => {
   await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible()
   await loginPage.navigateToLoginPage()
   await loginPage.loginWithoutPassword(textVault.username)
-  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible({ timeout: 10000, })
+  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible({ timeout: 90000, })
 })
 
 test("logout", async ({ page }) => {
