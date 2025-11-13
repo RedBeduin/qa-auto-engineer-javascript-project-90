@@ -1,3 +1,5 @@
+import textVault from '../../__fixtures__/text-vault.jsx'
+
 export class TasksPage {
   constructor(page) {
     this.page = page
