@@ -3,7 +3,6 @@ export class LoginPage {
     this.page = page
   }
 
-
   async navigateToLoginPage() {
     await this.page.goto('http://localhost:5173/#/login')
   }
