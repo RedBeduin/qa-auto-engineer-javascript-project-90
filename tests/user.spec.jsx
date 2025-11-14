@@ -21,18 +21,28 @@ test("login", async ({ page }) => {
   await expect(page.locator('text="Lorem ipsum sic dolor amet..."')).toBeVisible()
 })
 
-test("negative - login", async ({ page }) => {
+test("negative - login without username and password", async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.login('', '')
+  await loginPage.waitForSelector(`text="${textVault.errorTextLoginPage}"`)
   await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible()
+})
+
+test("negative - login without username", async ({ page }) => {
+  const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.loginWithoutUsername(textVault.password)
+  await loginPage.waitForSelector(`text="${textVault.errorTextLoginPage}"`)
   await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible()
+})
+
+test("negative - login without password", async ({ page }) => {
+  const loginPage = new LoginPage(page)
   await loginPage.navigateToLoginPage()
   await loginPage.loginWithoutPassword(textVault.username)
-  await loginPage.waitForSelector(`text="${textVault.errorTextLoginPage}"`, { timeout: 90000, })
-  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible()
+  await loginPage.waitForSelector(`text="${textVault.errorTextLoginPage}"`)
+  await expect(page.locator(`text="${textVault.errorTextLoginPage}"`)).toBeVisible() 
 })
 
 test("logout", async ({ page }) => {
