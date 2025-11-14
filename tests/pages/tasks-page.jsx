@@ -20,7 +20,6 @@ export class TasksPage {
     await this.page.getByRole('option', { name: assigneeEmail }).click()
     await this.page.locator(`input[name="title"]`).fill(title)
     await this.page.getByLabel('Status').click()
-    await this.page.waitForSelector(`text="${statusOption}"`)
     await this.page.getByRole('option', { name: statusOption }).click()
     await this.page.getByRole('button', { name: 'Save' }).click()
   }
