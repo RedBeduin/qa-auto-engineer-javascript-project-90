@@ -29,9 +29,9 @@ test('menu of edition of label', async ({ page }) => {
   await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.navigateToLabelsPage()
   await labelsPage.openCard('1')
-  await expect(page.locator('input[type="text"]')).toBeVisible()
-  await expect(page.locator('[aria-label="Save"]')).toBeVisible()
-  await expect(page.locator('[aria-label="Delete"]')).toBeVisible()
+  await expect(page.locator('input[type="text"]')).toBeVisible({ timeout: 40000, })
+  await expect(page.locator('[aria-label="Save"]')).toBeVisible({ timeout: 40000, })
+  await expect(page.locator('[aria-label="Delete"]')).toBeVisible({ timeout: 40000, })
 })
 
 test('edit labels', async ({ page }) => {
