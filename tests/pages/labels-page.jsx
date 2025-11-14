@@ -28,7 +28,7 @@ export class LabelsPage {
   }
   
   async openCard(id) {
-    await this.page.click(`cell[name="${id}"]`)
+    await this.page.locator(`td.column-id:has-text("${id}")`).click()
   }
 
   async editLabelName(id, newName) {
