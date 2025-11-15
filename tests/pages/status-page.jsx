@@ -63,7 +63,7 @@ export class StatusPage {
   }
 
   async clickCreateButton() {
-    await this.page.click('[aria-label="Create"]');
+    await this.page.getByLabel("Create").click();
   }
 
   async fillNameInput(name) {
@@ -75,23 +75,23 @@ export class StatusPage {
   }
 
   async clickSaveButton() {
-    await this.page.click('[aria-label="Save"]');
+    await this.page.getByLabel("Save").click();
   }
 
   async clickShowButton() {
-    await this.page.click(`[aria-label="Show"]`)
+    await this.page.getByLabel("Show").click()
   }
 
   async clickEditButton() {
-    await this.page.click(`[aria-label="Edit"]`)
+    await this.page.getByLabel("Edit").click()
   }
 
   async clickStatus(name) {
-    await this.page.click(`text="${name}"`);
+    await this.page.getByText(name).click();
   }
 
   async clickDeleteButton() {
-    await this.page.click('[aria-label="Delete"]');
+    await this.page.getByLabel("Delete").click();
   }
 
   async selectAllStatuses() {
