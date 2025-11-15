@@ -10,7 +10,7 @@ export class StatusPage {
   async login(username, password) {
     await this.page.fill('input[type="text"]', username);
     await this.page.fill('input[type="password"]', password);
-    await this.page.click('button[type="submit"]');
+    await this.page.getByRole('button', { type: "submit" });
   }
 
   async navigateToStatusesPage() {
