@@ -10,8 +10,8 @@ test("create status item", async ({ page }) => {
   await statusPage.navigateToStatusesPage()
   await statusPage.createNewStatus(textVault.statusName, textVault.statusSlug)
   await statusPage.navigateToStatusesPage()
-  await expect(page.locator(`text="${textVault.statusName}"`)).toBeVisible()
-  await expect(page.locator(`text="${textVault.statusSlug}"`)).toBeVisible()
+  await expect(page.getByText(textVault.statusName)).toBeVisible()
+  await expect(page.getByText(textVault.statusSlug)).toBeVisible()
 })
 
 test("status list", async ({ page }) => {
