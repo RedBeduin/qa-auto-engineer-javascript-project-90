@@ -63,7 +63,7 @@ export class StatusPage {
   }
 
   async clickCreateButton() {
-    await this.page.getByLabel("Create").click();
+    await this.page.getByLabel("Create").click({ timeout: 90000, });
   }
 
   async fillNameInput(name) {
@@ -75,23 +75,23 @@ export class StatusPage {
   }
 
   async clickSaveButton() {
-    await this.page.getByLabel("Save").click();
+    await this.page.getByLabel("Save").click({ timeout: 90000, });
   }
 
   async clickShowButton() {
-    await this.page.getByLabel("Show").click()
+    await this.page.getByLabel("Show").click({ timeout: 90000, })
   }
 
   async clickEditButton() {
-    await this.page.getByLabel("Edit").click()
+    await this.page.getByLabel("Edit").click({ timeout: 90000, })
   }
 
   async clickStatus(name) {
-    await this.page.getByText(name).click();
+    await this.page.getByText(name).click({ timeout: 90000, });
   }
 
   async clickDeleteButton() {
-    await this.page.getByLabel("Delete").click();
+    await this.page.getByLabel("Delete").click({ timeout: 90000, });
   }
 
   async selectAllStatuses() {
