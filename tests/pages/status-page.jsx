@@ -8,8 +8,8 @@ export class StatusPage {
   }
 
   async login(username, password) {
-    await this.page.fill('input[type="text"]', username);
-    await this.page.fill('input[type="password"]', password);
+    await this.page.fill('input[autocomplete="username"]', username);
+    await this.page.fill('input[autocomplete="current-password"]', password);
     await this.page.getByRole('button', { type: "submit" });
   }
 
@@ -63,7 +63,7 @@ export class StatusPage {
   }
 
   async clickCreateButton() {
-    await this.page.getByLabel("Create").click({ timeout: 90000, });
+    await this.page.getByLabel("Create").click();
   }
 
   async fillNameInput(name) {
@@ -75,23 +75,23 @@ export class StatusPage {
   }
 
   async clickSaveButton() {
-    await this.page.getByLabel("Save").click({ timeout: 90000, });
+    await this.page.getByLabel("Save").click();
   }
 
   async clickShowButton() {
-    await this.page.getByLabel("Show").click({ timeout: 90000, })
+    await this.page.getByLabel("Show").click()
   }
 
   async clickEditButton() {
-    await this.page.getByLabel("Edit").click({ timeout: 90000, })
+    await this.page.getByLabel("Edit").click()
   }
 
   async clickStatus(name) {
-    await this.page.getByText(name).click({ timeout: 90000, });
+    await this.page.getByText(name).click();
   }
 
   async clickDeleteButton() {
-    await this.page.getByLabel("Delete").click({ timeout: 90000, });
+    await this.page.getByLabel("Delete").click();
   }
 
   async selectAllStatuses() {

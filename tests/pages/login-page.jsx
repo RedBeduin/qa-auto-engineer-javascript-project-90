@@ -8,8 +8,8 @@ export class LoginPage {
   }
   
   async login(username, password) {
-    await this.page.fill('input[type="text"]', username)
-    await this.page.fill('input[type="password"]', password)
+    await this.page.fill('input[autocomplete="username"]', username)
+    await this.page.fill('input[autocomplete="current-password"]', password)
     await this.page.click('button[type="submit"]')
   }
   
