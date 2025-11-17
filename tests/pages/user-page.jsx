@@ -8,9 +8,9 @@ class UsersPage {
   }
 
   async login(username, password) {
-    await this.page.fill('input[autocomplete="username"]', username)
-    await this.page.fill('input[autocomplete="current-password"]', password)
-    await this.page.click('button[type="submit"]')
+    await this.page.getByLabel('Username *').fill(username)
+    await this.page.fill('Password *').fill(password)
+    await this.page.getByRole('button', { name: 'Sign in' }).click()
   }
 
   async navigateToUsersPage() {
@@ -18,33 +18,31 @@ class UsersPage {
   }
 
   async createUser(email, firstName, lastName) {
-    await this.page.click('[aria-label="Create"]')
-    await this.page.fill('input[name="email"]', email)
-    await this.page.fill('input[name="firstName"]', firstName)
-    await this.page.fill('input[name="lastName"]', lastName)
-    await this.page.click('[aria-label="Save"]')
+    await this.page.getByRole('button', { name: 'Create' }).click()
+    await this.page.getByLabel('Email').fill(email)
+    await this.page.getByLabel('First name').fill(firstName)
+    await this.page.getByLabel('Last name').fill(lastName)
+    await this.page.getByRole('button', { name: 'Save' }).click()
   }
 
   async editUser(email, newFirstName) {
     await this.page.click(`text="${email}"`)
-    const saveButton = await this.page.waitForSelector('[aria-label="Save"]')
-    await this.page.fill('input[name="firstName"]', newFirstName)
-    await saveButton.click()
+    await this.page.getByLabel('First name').fill(newFirstName)
+    await this.page.getByRole('button', { name: 'Save' }).click()
   }
 
   async clickShowButton() {
-    await this.page.click(`[aria-label="Show"]`)
+    await this.page.getByRole('button', { name: 'Show' }).click()
   }
 
   async clickEditButton() {
-    await this.page.click(`[aria-label="Edit"]`)
+    await this.page.getByRole('button', { name: 'Edit' }).click()
   }
 
   async editUserClickingEditButton(newFirstName) {
-    await this.page.click(`[aria-label="Edit"]`)
-    const saveButton = await this.page.waitForSelector('[aria-label="Save"]')
-    await this.page.fill('input[name="firstName"]', newFirstName)
-    await saveButton.click()
+    await this.page.getByRole('button', { name: 'Edit' }).click()
+    await this.page.getByLabel('First name').fill(newFirstName)
+    await this.page.getByRole('button', { name: 'Save' }).click()
   }
 
   async openUserData(email) {
@@ -54,12 +52,12 @@ class UsersPage {
   async deleteUser(email) {
     const elementToDelete = await this.page.waitForSelector(`text="${email}"`);
     await elementToDelete.click();
-    await this.page.click('[aria-label="Delete"]');
+    await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 
   async deleteAllUsers() {
     await this.page.click('table thead tr th input[type="checkbox"]');
-    await this.page.click('[aria-label="Delete"]');
+    await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 
   async waitForSelector(selector) {

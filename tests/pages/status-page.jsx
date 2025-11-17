@@ -8,9 +8,9 @@ export class StatusPage {
   }
 
   async login(username, password) {
-    await this.page.fill('input[autocomplete="username"]', username);
-    await this.page.fill('input[autocomplete="current-password"]', password);
-    await this.page.getByRole('button', { type: "submit" });
+    await this.page.getByLabel('Username *').fill(username)
+    await this.page.getByLabel('Password *').fill(password)
+    await this.page.getByRole('button', { name: 'Sign in' });
   }
 
   async navigateToStatusesPage() {
@@ -63,27 +63,27 @@ export class StatusPage {
   }
 
   async clickCreateButton() {
-    await this.page.getByLabel("Create").click();
+    await this.page.getByRole("button", { name: "Create" }).click();
   }
 
   async fillNameInput(name) {
-    await this.page.fill('input[name="name"]', name);
+    await this.page.getByLabel('Name').fill(name)
   }
 
   async fillSlugInput(slug) {
-    await this.page.fill('input[name="slug"]', slug);
+    await this.page.getByLabel('Slug').fill(slug)
   }
 
   async clickSaveButton() {
-    await this.page.getByLabel("Save").click();
+    await this.page.getByRole("button", { name: "Save" }).click();
   }
 
   async clickShowButton() {
-    await this.page.getByLabel("Show").click()
+    await this.page.getByRole("button", { name: "Show" }).click()
   }
 
   async clickEditButton() {
-    await this.page.getByLabel("Edit").click()
+    await this.page.getByRole("button", { name: "Edit" }).click()
   }
 
   async clickStatus(name) {
@@ -91,10 +91,10 @@ export class StatusPage {
   }
 
   async clickDeleteButton() {
-    await this.page.getByLabel("Delete").click();
+    await this.page.getByRole("button", { name: "Delete" }).click();
   }
 
   async selectAllStatuses() {
-    await this.page.click('table thead tr th input[type="checkbox"]');
+    await this.page.getByLabel('Select all').getByRole('checkbox').check()
   }
 }

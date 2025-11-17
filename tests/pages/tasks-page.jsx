@@ -14,11 +14,11 @@ export class TasksPage {
   } 
 
   async createTask(assigneeEmail, title, statusOption) {
-    await this.page.click('[aria-label="Create"]')
+    await this.page.getByRole('button', { name: 'Create' }).click()
 
     await this.page.getByLabel('Assignee').click()
     await this.page.getByRole('option', { name: assigneeEmail }).click()
-    await this.page.locator(`input[name="title"]`).fill(title)
+    await this.page.getByLabel("Title").fill(title)
     await this.page.getByLabel('Status').click()
     await this.page.getByRole('option', { name: statusOption }).click()
     await this.page.getByRole('button', { name: 'Save' }).click()
@@ -35,8 +35,8 @@ export class TasksPage {
   async changeTaskName(taskNumber, newTitle) {
     const nameOfEditTaskButton = `textVault.task${taskNumber}`
     await this.page.click(`button[name="${eval(nameOfEditTaskButton)}"][aria-label="Edit"]`)
-    await this.page.fill(`[aria-label="Title"]`, newTitle)
-    await this.page.click(`[aria-label="Save"]`) 
+    await this.page.getByLabel("Title").fill(newTitle)
+    await this.page.getByRole('button', { name: 'Save' }).click()
   }
   
   async showTask(taskNumber) {
@@ -48,10 +48,9 @@ export class TasksPage {
     const nameOfShowTaskButton = `textVault.task${taskNumber}`
     await this.page.click(`button[name="${eval(nameOfShowTaskButton)}"][aria-label="Show"]`)
     await this.page.click('text=@')
-    await this.page.click(`[aria-label="Edit"]`)
-    const saveButton = await this.page.waitForSelector('[aria-label="Save"]')
-    await this.page.fill('input[name="firstName"]', newFirstName)
-    await saveButton.click()
+    await this.page.getByRole('button', { name: 'Edit' }).click()
+    await this.page.getByLabel('First name').fill(newFirstName)
+    await this.page.getByRole('button', { name: 'Save' }).click()
   }
 
   async clickAssigneeEmail() {
@@ -61,7 +60,7 @@ export class TasksPage {
   async deleteTask(taskNumber) {
     const nameOfEditTaskButton = `textVault.task${taskNumber}`
     await this.page.click(`button[name="${eval(nameOfEditTaskButton)}"][aria-label="Edit"]`)
-    await this.page.click(`[aria-label="Delete"]`)
+    await this.page.getByRole('button', { name: 'Delete' })
   }
 
   async filterTasks(assigneeFilterOption, statusFilterOption, labelFilterOption) { 

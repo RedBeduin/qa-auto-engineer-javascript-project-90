@@ -8,9 +8,9 @@ export class LabelsPage {
   }
 
   async login(username, password) {
-    await this.page.fill('input[autocomplete="username"]', username)
-    await this.page.fill('input[autocomplete="current-password"]', password)
-    await this.page.click('button[type="submit"]')
+    await this.page.getByLabel('Username *').fill(username)
+    await this.page.getByLabel('Password *').fill(password)
+    await this.page.getByRole('button', { name: 'Sign in' }).click()
   }
   
   async navigateToLabelsPage() {
@@ -22,9 +22,9 @@ export class LabelsPage {
   }
 
   async createNewLabel(name) {
-    await this.page.click(`[aria-label="Create"]`)
-    await this.page.fill(`input[type="text"]`, name)
-    await this.page.click(`[aria-label="Save"]`) 
+    await this.page.getByRole('button', { name: "Create" }).click()
+    await this.page.getByLabel('Name').fill(name)
+    await this.page.getByRole('button', { name: "Save" }).click()
   }
   
   async openCard(id) {
@@ -33,39 +33,39 @@ export class LabelsPage {
 
   async editLabelName(id, newName) {
     await this.openCard(id)
-    await this.page.fill(`[aria-label="Name"]`, newName)
-    await this.page.click(`[aria-label="Save"]`)
+    await this.page.getByLabel('Name').fill(newName)
+    await this.page.getByRole('button', { name: "Save" }).click()
   }
 
   async showLabelSummary(id) {
     await this.openCard(id)
-    await this.page.click(`[aria-label="Show"]`)
+    await this.page.getByRole('button', { name: "Show" }).click()
   }
 
   async showLabelSummaryAndEditLabelName(id, newName) {
     await this.showLabelSummary(id)
-    await this.page.click(`[aria-label="Edit"]`)
-    await this.page.fill(`[aria-label="Name"]`, newName)
-    await this.page.click(`[aria-label="Save"]`)
+    await this.page.getByRole('button', { name: "Edit" }).click()
+    await this.page.getByLabel('Name').fill(newName)
+    await this.page.getByRole('button', { name: "Save" }).click()
   }
 
   async deleteLabels(labelsArr) {
     labelsArr.map(async(labels) => {await `row[name="Select this row ${labels}"]`.getByRole("checkbox").check()})   
-    await this.page.click(`[aria-label="Delete"]`)
+    await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 
   async deleteLabelsAndCancelDeletion(labelsArr) {
     await this.deleteLabels(labelsArr)
-    await this.page.click(`button[name="Undo"]`)
+    await this.page.getByRole('button', { name: 'Undo' }).click()
   }
 
   async deleteAllLabels() {
     await `[aria-label="Select all"]`.getByRole("checkbox").check()
-    await this.page.click(`[aria-label="Delete"]`)
+    await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 
   async deleteAllLabelsAndCancelDeletion() {
     await this.deleteAllLabels()
-    await this.page.click(`button[name="Undo"]`)
+    await this.page.getByRole('button', { name: 'Undo' }).click()
   }
 }

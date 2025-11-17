@@ -8,19 +8,19 @@ export class LoginPage {
   }
   
   async login(username, password) {
-    await this.page.fill('input[autocomplete="username"]', username)
-    await this.page.fill('input[autocomplete="current-password"]', password)
-    await this.page.click('button[type="submit"]')
+    await this.page.getByLabel('Username *').fill(username)
+    await this.page.getByLabel('Password *').fill(password)
+    await this.page.getByRole('button', { name: 'Sign in' }).click()
   }
   
   async loginWithoutPassword(username) {
-    await this.page.fill('input[type="text"]', username)
-    await this.page.click('button[type="submit"]')
+    await this.page.getByLabel('Username *').fill(username)
+    await this.page.getByRole('button', { name: 'Sign in' }).click()
   }
 
   async loginWithoutUsername(password) {
-    await this.page.fill('input[type="password"]', password)
-    await this.page.click('button[type="submit"]')
+    await this.page.getByLabel('Password *').fill(password)
+    await this.page.getByRole('button', { name: 'Sign in' }).click()
   }
 
   async waitForSelector(selector) {
