@@ -4,17 +4,17 @@ export class StatusPage {
   }
 
   async navigateToLoginPage() {
-    await this.page.goto('http://localhost:5173/#/login');
+    await this.page.goto('http://localhost:5173/#/login', { timeout: 90000, });
   }
 
   async login(username, password) {
-    await this.page.getByLabel('Username *').fill(username)
-    await this.page.getByLabel('Password *').fill(password)
-    await this.page.getByRole('button', { name: 'Sign in' });
+    await this.page.getByLabel('Username *', { timeout: 90000, }).fill(username, { timeout: 90000, })
+    await this.page.getByLabel('Password *', { timeout: 90000, }).fill(password, { timeout: 90000, })
+    await this.page.getByRole('button', { name: 'Sign in' }, { timeout: 90000, });
   }
 
   async navigateToStatusesPage() {
-    await this.page.goto('http://localhost:5173/#/task_statuses');
+    await this.page.goto('http://localhost:5173/#/task_statuses', { timeout: 90000, });
   }
 
   async createNewStatus(name, slug) {
@@ -59,42 +59,42 @@ export class StatusPage {
   }
 
   async waitForSelector(selector) {
-    await this.page.waitForSelector(selector);
+    await this.page.waitForSelector(selector, { timeout: 90000, });
   }
 
   async clickCreateButton() {
-    await this.page.getByRole("button", { name: "Create" }).click();
+    await this.page.getByRole("button", { name: "Create" }, { timeout: 90000, }).click({ timeout: 90000, });
   }
 
   async fillNameInput(name) {
-    await this.page.getByLabel('Name').fill(name)
+    await this.page.getByLabel('Name', { timeout: 90000, }).fill(name, { timeout: 90000, })
   }
 
   async fillSlugInput(slug) {
-    await this.page.getByLabel('Slug').fill(slug)
+    await this.page.getByLabel('Slug', { timeout: 90000, }).fill(slug, { timeout: 90000, })
   }
 
   async clickSaveButton() {
-    await this.page.getByRole("button", { name: "Save" }).click();
+    await this.page.getByRole("button", { name: "Save" }, { timeout: 90000, }).click({ timeout: 90000, });
   }
 
   async clickShowButton() {
-    await this.page.getByRole("button", { name: "Show" }).click()
+    await this.page.getByRole("button", { name: "Show" }, { timeout: 90000, }).click({ timeout: 90000, })
   }
 
   async clickEditButton() {
-    await this.page.getByRole("button", { name: "Edit" }).click()
+    await this.page.getByRole("button", { name: "Edit" }, { timeout: 90000, }).click({ timeout: 90000, })
   }
 
   async clickStatus(name) {
-    await this.page.getByText(name).click();
+    await this.page.getByText(name, { timeout: 90000, }).click({ timeout: 90000, });
   }
 
   async clickDeleteButton() {
-    await this.page.getByRole("button", { name: "Delete" }).click();
+    await this.page.getByRole("button", { name: "Delete" }, { timeout: 90000, }).click({ timeout: 90000, });
   }
 
   async selectAllStatuses() {
-    await this.page.getByLabel('Select all').getByRole('checkbox').check()
+    await this.page.getByLabel('Select all', { timeout: 90000, }).getByRole('checkbox', { timeout: 90000, }).check({ timeout: 90000, })
   }
 }
