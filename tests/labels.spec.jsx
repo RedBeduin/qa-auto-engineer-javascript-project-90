@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test'
 import { LabelsPage } from './pages/labels-page.jsx'
+import { LoginPage } from './pages/login-page.jsx'
 import textVault from '../__fixtures__/text-vault.jsx'
 import labels from '../__fixtures__/labels.jsx'
 
 test('create labels', async ({ page }) => {
   const labelsPage = new LabelsPage(page)
-  await labelsPage.navigateToLoginPage()
+  const loginPage = new LoginPage(page)
+  await loginPage.navigateToLoginPage()
   await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.navigateToLabelsPage()
   await labelsPage.createNewLabel(textVault.labelName)
@@ -49,6 +51,7 @@ test('edit labels from summary screen', async ({ page }) => {
   await labelsPage.login(textVault.username, textVault.password)
   await labelsPage.navigateToLabelsPage()
   await labelsPage.createNewLabel(textVault.labelName)
+  await labelsPage.navigateToLabelsPage()
   await labelsPage.showLabelSummaryAndEditLabelName('6', textVault.changedLabelName)
   await expect(page.locator(`text="${textVault.changedLabelName}"`)).toBeVisible()
 })
