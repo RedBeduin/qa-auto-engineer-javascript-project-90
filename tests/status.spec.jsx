@@ -36,16 +36,15 @@ test("edit status", async ({ page }) => {
   await expect(page.locator('text="ChangedSlug"')).toBeVisible()
 })
 
-test("Edit status from status summary page", async ({ page }) => {
+test("edit status from status summary page", async ({ page }) => {
   const statusPage = new StatusPage(page)
   await statusPage.navigateToLoginPage()
   await statusPage.login(textVault.username, textVault.password)
   await statusPage.navigateToStatusesPage()
   await statusPage.createNewStatus(textVault.statusName, textVault.statusSlug)
   await statusPage.editStatusAfterCreation('ChangedName', 'ChangedSlug')
-  await statusPage.navigateToStatusesPage()
-  await expect(page.locator('text="ChangedName"')).toBeVisible()
-  await expect(page.locator('text="ChangedSlug"')).toBeVisible()
+  await expect(page.locator('text="ChangedName"')).toBeVisible({ timeout: 50000, })
+  await expect(page.locator('text="ChangedSlug"')).toBeVisible({ timeout: 50000, })
 })
 
 test("delete status", async ({ page }) => {

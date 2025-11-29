@@ -9,7 +9,7 @@ export class PersonAccPage {
 
   async logOut() {
     await this.page.click(`[aria-label="Profile"]`)
-    await this.page.click(`text="Logout"`)
+    await this.page.getByText("Logout").click()
   }
 
   async clickProfile() {

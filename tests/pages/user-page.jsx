@@ -18,7 +18,7 @@ class UsersPage {
   }
 
   async createUser(email, firstName, lastName) {
-    await this.page.getByRole('button', { name: 'Create' }).click()
+    await this.page.getByRole('link', { name: 'Create' }).click()
     await this.page.getByLabel('Email').fill(email)
     await this.page.getByLabel('First name').fill(firstName)
     await this.page.getByLabel('Last name').fill(lastName)
@@ -32,15 +32,15 @@ class UsersPage {
   }
 
   async clickShowButton() {
-    await this.page.getByRole('button', { name: 'Show' }).click()
+    await this.page.getByRole('link', { name: 'Show' }).click()
   }
 
   async clickEditButton() {
-    await this.page.getByRole('button', { name: 'Edit' }).click()
+    await this.page.getByRole('link', { name: 'Edit' }).click()
   }
 
   async editUserClickingEditButton(newFirstName) {
-    await this.page.getByRole('button', { name: 'Edit' }).click()
+    await this.page.getByRole('link', { name: 'Edit' }).click()
     await this.page.getByLabel('First name').fill(newFirstName)
     await this.page.getByRole('button', { name: 'Save' }).click()
   }

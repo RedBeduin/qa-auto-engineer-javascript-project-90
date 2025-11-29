@@ -8,7 +8,7 @@ export class LabelsPage {
   }
 
   async login(username, password) {
-    await this.page.locator('input[name="username"]').fill(username)
+    await this.page.getByLabel('Username *').fill(username)
     await this.page.getByLabel('Password *').fill(password)
     await this.page.getByRole('button', { name: 'Sign in' }).click()
   }
@@ -49,18 +49,18 @@ export class LabelsPage {
     await this.page.getByRole('button', { name: "Save" }).click()
   }
 
-  async deleteLabels(labelsArr) {
-    labelsArr.map(async(labels) => {await this.page.locator(`row[name="Select this row ${labels}"]`).getByRole("checkbox").check()})
+  async deleteLabel(rowNum) {
+    await this.page.getByRole('row', { name: `Select this row ${rowNum}` }).getByRole("checkbox").click()
     await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 
-  async deleteLabelsAndCancelDeletion(labelsArr) {
-    await this.deleteLabels(labelsArr)
+  async deleteLabelAndCancelDeletion(rowNum) {
+    await this.deleteLabel(rowNum)
     await this.page.getByRole('button', { name: 'Undo' }).click()
   }
 
   async deleteAllLabels() {
-    await this.page.locator(`[aria-label="Select all"]`).getByRole("checkbox").check()
+    await this.page.locator('input[aria-label="Select all"]').click()
     await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 
