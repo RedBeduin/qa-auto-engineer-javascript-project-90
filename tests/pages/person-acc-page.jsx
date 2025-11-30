@@ -8,27 +8,37 @@ export class PersonAccPage {
   }
 
   async logOut() {
-    await this.page.click(`[aria-label="Profile"]`)
-    await this.page.getByText("Logout").click()
+    await this.clickProfile() // logout button displays not correctly
+    await this.page.mouse.click(20, 20) // logout button disappears
+    await this.clickProfile() // logout button displays correctly 
+    await this.clickLogOutButton()
   }
 
   async clickProfile() {
-    await this.page.click(`[aria-label="Profile"]`)
+    await this.page.locator('[aria-label="Profile"]').click()
+  }
+
+  async clickLogOutButton() {
+    await this.page.getByText("Logout").click()
+  }
+
+  async clickDashboardOption() {
+    await this.page.getByRole('menuitem', { href: '#/' }).click()
   }
 
   async clickUsersOption() {
-    await this.page.click(`menuitem[name="Users"]`)
+    await this.page.getByRole('menuitem', { href: '#/users' }).click()
   }
 
   async clickStatusesOption() {
-    await this.page.click(`menuitem[name="Task statuses"]`)
+    await this.page.getByRole('menuitem', { href: '#/task_statuses' }).click()
   }
 
   async clickLabelsOption() {
-    await this.page.click(`menuitem[name="Labels"]`)
+    await this.page.getByRole('menuitem', { href: '#/labels'}).click()
   }
 
   async clickTasksOption() {
-    await this.page.click(`menuitem[name="Tasks"]`)
+    await this.page.getByRole('menuitem', { href: '#/tasks' }).click()
   }
 }
