@@ -26,7 +26,7 @@ class UsersPage {
   }
 
   async editUser(email, newFirstName) {
-    await this.page.click(`text="${email}"`)
+    await this.page.getByText(email).click()
     await this.page.getByLabel('First name').fill(newFirstName)
     await this.page.getByRole('button', { name: 'Save' }).click()
   }
@@ -46,7 +46,7 @@ class UsersPage {
   }
 
   async openUserData(email) {
-    await this.page.click(`text="${email}"`)
+    await this.page.getByText(email).click()
   }
 
   async deleteUser(email) {
@@ -56,7 +56,7 @@ class UsersPage {
   }
 
   async deleteAllUsers() {
-    await this.page.click('table thead tr th input[type="checkbox"]');
+    await this.page.locator('table thead tr th input[type="checkbox"]').click();
     await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 

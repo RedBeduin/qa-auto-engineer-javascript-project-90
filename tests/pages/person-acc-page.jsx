@@ -8,9 +8,7 @@ export class PersonAccPage {
   }
 
   async logOut() {
-    await this.clickProfile() // logout button displays not correctly
-    await this.page.mouse.click(20, 20) // logout button disappears
-    await this.clickProfile() // logout button displays correctly 
+    await this.clickProfile()
     await this.clickLogOutButton()
   }
 
@@ -19,7 +17,7 @@ export class PersonAccPage {
   }
 
   async clickLogOutButton() {
-    await this.page.getByText("Logout").click()
+    await this.page.getByRole('menuitem', { name: /Logout/ }).click()
   }
 
   async clickDashboardOption() {

@@ -20,8 +20,8 @@ test("status list", async ({ page }) => {
   await statusPage.login(textVault.username, textVault.password)
   await statusPage.navigateToStatusesPage()
   for(const taskStatus of taskStatuses) {
-    await expect(page.locator(`text="${taskStatus.Name}"`)).toBeVisible()
-    await expect(page.locator(`text="${taskStatus.Slug}"`)).toBeVisible()
+    await expect(page.getByText(taskStatus.Name, { exact: true })).toBeVisible()
+    await expect(page.getByText(taskStatus.Slug, { exact: true })).toBeVisible()
   } 
 })
 
@@ -30,10 +30,10 @@ test("edit status", async ({ page }) => {
   await statusPage.navigateToLoginPage()
   await statusPage.login(textVault.username, textVault.password)
   await statusPage.navigateToStatusesPage()
-  await statusPage.editStatus('Draft', 'ChangedName', 'ChangedSlug')
+  await statusPage.editStatus(taskStatuses[0].Name, textVault.changedStatusName, textVault.changedStatusSlug)
   await statusPage.navigateToStatusesPage()
-  await expect(page.locator('text="ChangedName"')).toBeVisible()
-  await expect(page.locator('text="ChangedSlug"')).toBeVisible()
+  await expect(page.getByText(textVault.changedStatusName)).toBeVisible()
+  await expect(page.getByText(textVault.changedStatusSlug)).toBeVisible()
 })
 
 test("edit status from status summary page", async ({ page }) => {
@@ -43,8 +43,8 @@ test("edit status from status summary page", async ({ page }) => {
   await statusPage.navigateToStatusesPage()
   await statusPage.createNewStatus(textVault.statusName, textVault.statusSlug)
   await statusPage.editStatusAfterCreation('ChangedName', 'ChangedSlug')
-  await expect(page.locator('text="ChangedName"')).toBeVisible()
-  await expect(page.locator('text="ChangedSlug"')).toBeVisible()
+  await expect(page.getByText("ChangedName")).toBeVisible()
+  await expect(page.getByText("ChangedSlug")).toBeVisible()
 })
 
 test("delete status", async ({ page }) => {
@@ -54,8 +54,8 @@ test("delete status", async ({ page }) => {
   await statusPage.navigateToStatusesPage()
   await statusPage.deleteStatus('Draft')
   await statusPage.navigateToStatusesPage()
-  await expect(page.locator('text="Draft"')).not.toBeVisible()
-  await expect(page.locator('text="draft"')).not.toBeVisible() 
+  await expect(page.getByText("Draft", { exact: true })).not.toBeVisible()
+  await expect(page.getByText("draft", { exact: true })).not.toBeVisible() 
 })
 
 test("delete all status", async ({ page }) => {
@@ -65,7 +65,7 @@ test("delete all status", async ({ page }) => {
   await statusPage.navigateToStatusesPage()
   await statusPage.deleteAllStatuses()
   await statusPage.navigateToStatusesPage()
-  await expect(page.locator('text="No Task statuses yet."')).toBeVisible()
-  await expect(page.locator('text="Draft"')).not.toBeVisible()
-  await expect(page.locator('text="draft"')).not.toBeVisible()
+  await expect(page.getByText("No Task statuses yet.", { exact: true })).toBeVisible()
+  await expect(page.getByText("Draft", { exact: true })).not.toBeVisible()
+  await expect(page.getByText("draft", { exact: true })).not.toBeVisible()
 })

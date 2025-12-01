@@ -23,9 +23,9 @@ test('tasks list', async ({ page }) => {
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
   for(const task of tasks) {
-    await expect(page.locator(`text="${task.name}"`)).toBeVisible()
-    await expect(page.locator(`text="${task.description}"`)).toBeVisible()
-  }  
+    await expect(page.getByText(task.name, { exact: true })).toBeVisible()
+    await expect(page.getByText(task.description, { exact: true })).toBeVisible()
+  }
 })
 
 test('menu of edition of task', async({ page }) => {
@@ -52,8 +52,8 @@ test('edit tasks', async({ page }) => {
   await tasksPage.navigateToTasksPage()
   await tasksPage.changeTaskName('1', 'ChangedTitle')
   await tasksPage.navigateToTasksPage()
-  await expect(page.locator(`text="ChangedTitle"`)).toBeVisible()
-  await expect(page.locator(`text="Task 1"`)).not.toBeVisible()
+  await expect(page.getByText("ChangedTitle")).toBeVisible()
+  await expect(page.getByText("Task 1", { exact: true })).not.toBeVisible()
 })
 
 test('edit tasks from summary screen', async({ page }) => {
@@ -66,9 +66,9 @@ test('edit tasks from summary screen', async({ page }) => {
   await tasksPage.navigateToTasksPage()
   await tasksPage.showTask('1')
   await tasksPage.clickAssigneeEmail()
-  await expect(page.locator(`text="ChangedFirstName"`)).toBeVisible()
+  await expect(page.getByText("ChangedFirstName")).toBeVisible()
   await tasksPage.navigateToUsersPage()
-  await expect(page.locator(`text="ChangedFirstName"`)).toBeVisible()
+  await expect(page.getByText("ChangedFirstName")).toBeVisible()
 })
 
 test('delete tasks', async({ page }) => {
@@ -78,7 +78,7 @@ test('delete tasks', async({ page }) => {
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
   await tasksPage.deleteTask('1')
-  await expect(page.locator(`text="Task 1"`)).not.toBeVisible()
+  await expect(page.getByText("Task 1", { exact: true })).not.toBeVisible()
 })
 
 test('filter tasks', async({ page }) => {
@@ -88,5 +88,5 @@ test('filter tasks', async({ page }) => {
   await loginPage.login(textVault.username, textVault.password)
   await tasksPage.navigateToTasksPage()
   await tasksPage.filterTasks('john@google.com', 'Published', 'critical')
-  await expect(page.locator(`text="Task 15"`)).toBeVisible()
+  await expect(page.getByText("Task 15", { exact: true })).toBeVisible()
 })
