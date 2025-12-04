@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, describe } from '@playwright/test'
 import textVault from '../__fixtures__/text-vault.jsx'
 import { LoginPage } from './pages/login-page.jsx'
 import { TasksPage } from './pages/tasks-page.jsx'
