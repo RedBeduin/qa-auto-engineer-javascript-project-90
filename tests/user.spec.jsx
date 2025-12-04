@@ -98,10 +98,7 @@ test.describe('testing of the users section', () => {
   })
 
   test("user list", async ({ page }) => {
-    const loginPage = new LoginPage(page)
     const usersPage = new UsersPage(page)
-    await loginPage.navigateToLoginPage()
-    await loginPage.login(textVault.username, textVault.password)
     await usersPage.navigateToUsersPage()
     for(const user of users)
     {
@@ -112,10 +109,7 @@ test.describe('testing of the users section', () => {
   })
 
   test("editing form", async ({ page }) => {
-    const loginPage = new LoginPage(page)
     const usersPage = new UsersPage(page)
-    await loginPage.navigateToLoginPage()
-    await loginPage.login(textVault.username, textVault.password)
     await usersPage.navigateToUsersPage()
     await usersPage.openUserData('john@google.com')
     await expect(page.locator(`input[value="${users[0].Email}"]`)).toBeVisible()
@@ -127,10 +121,7 @@ test.describe('testing of the users section', () => {
   })
 
   test("edit user", async ({ page }) => {
-    const loginPage = new LoginPage(page)
     const usersPage = new UsersPage(page)
-    await loginPage.navigateToLoginPage()
-    await loginPage.login(textVault.username, textVault.password)
     await usersPage.navigateToUsersPage()
     await usersPage.editUser('john@google.com', 'ChangedFirstName')
     await usersPage.navigateToUsersPage()
@@ -141,10 +132,7 @@ test.describe('testing of the users section', () => {
   })
 
   test("edit user from create form", async ({ page }) => {
-    const loginPage = new LoginPage(page)
     const usersPage = new UsersPage(page)
-    await loginPage.navigateToLoginPage()
-    await loginPage.login(textVault.username, textVault.password)
     await usersPage.navigateToUsersPage()
     await usersPage.createUser('useremail@gmail.com', textVault.userFirstName, textVault.userLastName)
     await usersPage.clickShowButton()
@@ -157,20 +145,14 @@ test.describe('testing of the users section', () => {
   })
 
   test("negative - edit user", async ({ page }) => {
-    const loginPage = new LoginPage(page)
     const usersPage = new UsersPage(page)
-    await loginPage.navigateToLoginPage()
-    await loginPage.login(textVault.username, textVault.password)
     await usersPage.navigateToUsersPage()
     await usersPage.editUser('john@google.com', '')
     await expect(page.getByText(textVault.errorTextLoginPage, { exact: true })).toBeVisible()
   })
 
   test("delete user", async ({ page }) => {
-    const loginPage = new LoginPage(page)
     const usersPage = new UsersPage(page)
-    await loginPage.navigateToLoginPage()
-    await loginPage.login(textVault.username, textVault.password)
     await usersPage.navigateToUsersPage()
     await usersPage.deleteUser('john@google.com')
     await usersPage.navigateToUsersPage()
@@ -180,10 +162,7 @@ test.describe('testing of the users section', () => {
   })
 
   test("delete all user", async ({ page }) => {
-    const loginPage = new LoginPage(page)
     const usersPage = new UsersPage(page)
-    await loginPage.navigateToLoginPage()
-    await loginPage.login(textVault.username, textVault.password)
     await usersPage.navigateToUsersPage()
     await usersPage.deleteAllUsers()
     await usersPage.navigateToUsersPage()
