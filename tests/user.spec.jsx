@@ -1,11 +1,11 @@
-import { test, expect, describe } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import textVault from '../__fixtures__/text-vault.jsx'
 import { LoginPage } from "./pages/login-page.jsx";
 import { PersonAccPage } from "./pages/person-acc-page.jsx";
 import { UsersPage } from "./pages/user-page.jsx";
 import users from '../__fixtures__/users.jsx'
 
-describe('application display test', () => {
+test.describe('application display test', () => {
   test('application display', async ({ page }) => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
@@ -15,7 +15,7 @@ describe('application display test', () => {
   })
 })
 
-describe('testing of the login function', () => {
+test.describe('testing of the login function', () => {
   test("login", async ({ page }) => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
@@ -49,8 +49,8 @@ describe('testing of the login function', () => {
   })
 })
 
-describe('testing of the logout function', () => {
-  beforeEach(async() => {
+test.describe('testing of the logout function', () => {
+  test.beforeEach(async() => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)
@@ -68,8 +68,8 @@ describe('testing of the logout function', () => {
 })
 
 
-describe('testing of the users section', () => {
-  beforeEach(async() => {
+test.describe('testing of the users section', () => {
+  test.beforeEach(async() => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)

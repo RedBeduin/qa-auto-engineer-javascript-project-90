@@ -1,12 +1,12 @@
-import { test, expect, describe } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 import { LabelsPage } from './pages/labels-page.jsx'
 import { LoginPage } from './pages/login-page.jsx'
 import textVault from '../__fixtures__/text-vault.jsx'
 import labels from '../__fixtures__/labels.jsx'
 
 
-describe('testing of the labels section', () => {
-  beforeEach(async() => {
+test.describe('testing of the labels section', () => {
+  test.beforeEach(async() => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)
