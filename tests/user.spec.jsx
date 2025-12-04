@@ -50,7 +50,7 @@ test.describe('testing of the login function', () => {
 })
 
 test.describe('testing of the logout function', () => {
-  test.beforeEach(async() => {
+  test.beforeEach(async({ page }) => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)
@@ -69,7 +69,7 @@ test.describe('testing of the logout function', () => {
 
 
 test.describe('testing of the users section', () => {
-  test.beforeEach(async() => {
+  test.beforeEach(async({ page }) => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)

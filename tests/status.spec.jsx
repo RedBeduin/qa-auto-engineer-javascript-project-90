@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test"
 import textVault from '../__fixtures__/text-vault.jsx'
+import { LoginPage } from './pages/login-page.jsx'
 import { StatusPage } from "./pages/status-page.jsx"
 import taskStatuses from "../__fixtures__/task-statuses.jsx"
 
 test.describe('testing of the task statuses section', () => {
-  test.beforeEach(async() => {
+  test.beforeEach(async({ page }) => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)

@@ -5,7 +5,7 @@ import { TasksPage } from './pages/tasks-page.jsx'
 import tasks from '../__fixtures__/tasks.jsx'
 
 test.describe('testing of the tasks section', () => {
-  test.beforeEach(async() => {
+  test.beforeEach(async({ page }) => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)
