@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
-import textVault from '../__fixtures__/text-vault.jsx'
+import textVault from '../__fixtures__/text-vault.js'
 import { LoginPage } from './pages/login-page.jsx'
 import { TasksPage } from './pages/tasks-page.jsx'
-import tasks from '../__fixtures__/tasks.jsx'
+import tasks from '../__fixtures__/tasks.js'
 
 test.describe('testing of the tasks section', () => {
   test.beforeEach(async({ page }) => {
@@ -14,10 +14,10 @@ test.describe('testing of the tasks section', () => {
   test('create tasks', async ({ page }) => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
-    await tasksPage.createTask("john@google.com", "Title", "To Review")
+    await tasksPage.createTask(textVault.taskAssigneeEmail, textVault.taskTitle, textVault.taskStatusOption)
     await tasksPage.navigateToTasksPage()
-    await expect(tasksPage.getColumn('To Review').getByText('Title')).toBeVisible()
-    await expect(tasksPage.getCard('Title')).toBeVisible()
+    await expect(tasksPage.getColumn(textVault.taskStatusOption).getByText(textVault.taskTitle)).toBeVisible()
+    await expect(tasksPage.getCard(textVault.taskTitle)).toBeVisible()
   })
 
   test('tasks list', async ({ page }) => {
@@ -45,10 +45,10 @@ test.describe('testing of the tasks section', () => {
   test('edit tasks', async({ page }) => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
-    await tasksPage.changeTaskName('1', 'ChangedTitle')
+    await tasksPage.changeTaskName('1', textVault.taskTitleChanged)
     await tasksPage.navigateToTasksPage()
-    await expect(page.getByText("ChangedTitle")).toBeVisible()
-    await expect(page.getByText("Task 1", { exact: true })).not.toBeVisible()
+    await expect(page.getByText(textVault.taskTitleChanged)).toBeVisible()
+    await expect(page.getByText(textVault.task1Title, { exact: true })).not.toBeVisible()
   })
 
   test('edit tasks from summary screen', async({ page }) => {
@@ -67,13 +67,13 @@ test.describe('testing of the tasks section', () => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
     await tasksPage.deleteTask('1')
-    await expect(page.getByText("Task 1", { exact: true })).not.toBeVisible()
+    await expect(page.getByText(textVault.task1Title, { exact: true })).not.toBeVisible()
   })
 
   test('filter tasks', async({ page }) => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
-    await tasksPage.filterTasks('john@google.com', 'Published', 'critical')
-    await expect(page.getByText("Task 15", { exact: true })).toBeVisible()
+    await tasksPage.filterTasks(textVault.assigneeFilterOption, textVault.statusFilterOption, textVault.labelFilterOption)
+    await expect(page.getByText(textVault.task15Title, { exact: true })).toBeVisible()
   })
 })

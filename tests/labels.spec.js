@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
 import { LabelsPage } from './pages/labels-page.jsx'
 import { LoginPage } from './pages/login-page.jsx'
-import textVault from '../__fixtures__/text-vault.jsx'
-import labels from '../__fixtures__/labels.jsx'
+import textVault from '../__fixtures__/text-vault.js'
+import labels from '../__fixtures__/labels.js'
 
 
 test.describe('testing of the labels section', () => {
@@ -68,6 +68,6 @@ test.describe('testing of the labels section', () => {
     const labelsPage = new LabelsPage(page)
     await labelsPage.navigateToLabelsPage()
     await labelsPage.deleteAllLabels()
-    await expect(page.getByText("No Labels yet.")).toBeVisible()
+    await expect(page.getByText(textVault.noLabelsText)).toBeVisible()
   })  
 })

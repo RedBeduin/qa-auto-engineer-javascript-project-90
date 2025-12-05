@@ -3,16 +3,6 @@ class UsersPage {
     this.page = page;
   }
 
-  async navigateToLoginPage() {
-    await this.page.goto('http://localhost:5173/#/login')
-  }
-
-  async login(username, password) {
-    await this.page.getByLabel('Username *').fill(username)
-    await this.page.fill('Password *').fill(password)
-    await this.page.getByRole('button', { name: 'Sign in' }).click()
-  }
-
   async navigateToUsersPage() {
     await this.page.goto('http://localhost:5173/#/users')
   }

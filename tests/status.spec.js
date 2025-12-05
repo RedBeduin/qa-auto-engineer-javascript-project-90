@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test"
-import textVault from '../__fixtures__/text-vault.jsx'
+import textVault from '../__fixtures__/text-vault.js'
 import { LoginPage } from './pages/login-page.jsx'
 import { StatusPage } from "./pages/status-page.jsx"
-import taskStatuses from "../__fixtures__/task-statuses.jsx"
+import taskStatuses from "../__fixtures__/task-statuses.js"
 
 test.describe('testing of the task statuses section', () => {
   test.beforeEach(async({ page }) => {
@@ -42,18 +42,18 @@ test.describe('testing of the task statuses section', () => {
     const statusPage = new StatusPage(page)
     await statusPage.navigateToStatusesPage()
     await statusPage.createNewStatus(textVault.statusName, textVault.statusSlug)
-    await statusPage.editStatusAfterCreation('ChangedName', 'ChangedSlug')
-    await expect(page.getByText("ChangedName")).toBeVisible()
-    await expect(page.getByText("ChangedSlug")).toBeVisible()
+    await statusPage.editStatusAfterCreation(textVault.changedStatusName, textVault.changedStatusSlug)
+    await expect(page.getByText(textVault.changedStatusName)).toBeVisible()
+    await expect(page.getByText(textVault.changedStatusSlug)).toBeVisible()
   })
 
   test("delete status", async ({ page }) => {
     const statusPage = new StatusPage(page)
     await statusPage.navigateToStatusesPage()
-    await statusPage.deleteStatus('Draft')
+    await statusPage.deleteStatus(taskStatuses[0].Name)
     await statusPage.navigateToStatusesPage()
-    await expect(page.getByText("Draft", { exact: true })).not.toBeVisible()
-    await expect(page.getByText("draft", { exact: true })).not.toBeVisible() 
+    await expect(page.getByText(taskStatuses[0].Name, { exact: true })).not.toBeVisible()
+    await expect(page.getByText(taskStatuses[0].Slug, { exact: true })).not.toBeVisible() 
   })
 
   test("delete all status", async ({ page }) => {
@@ -61,8 +61,8 @@ test.describe('testing of the task statuses section', () => {
     await statusPage.navigateToStatusesPage()
     await statusPage.deleteAllStatuses()
     await statusPage.navigateToStatusesPage()
-    await expect(page.getByText("No Task statuses yet.", { exact: true })).toBeVisible()
-    await expect(page.getByText("Draft", { exact: true })).not.toBeVisible()
-    await expect(page.getByText("draft", { exact: true })).not.toBeVisible()
+    await expect(page.getByText(textVault.noStatusText, { exact: true })).toBeVisible()
+    await expect(page.getByText(taskStatuses[0].Name, { exact: true })).not.toBeVisible()
+    await expect(page.getByText(taskStatuses[0].Slug, { exact: true })).not.toBeVisible()
   })
 })

@@ -3,16 +3,6 @@ export class StatusPage {
     this.page = page;
   }
 
-  async navigateToLoginPage() {
-    await this.page.goto('http://localhost:5173/#/login');
-  }
-
-  async login(username, password) {
-    await this.page.getByLabel('Username *').fill(username)
-    await this.page.getByLabel('Password *').fill(password)
-    await this.page.getByRole('button', { name: 'Sign in' }).click();
-  }
-
   async navigateToStatusesPage() {
     await this.page.goto('http://localhost:5173/#/task_statuses');
   }

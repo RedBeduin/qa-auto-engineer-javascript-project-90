@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
-import textVault from '../__fixtures__/text-vault.jsx'
+import textVault from '../__fixtures__/text-vault.js'
 import { LoginPage } from "./pages/login-page.jsx";
 import { PersonAccPage } from "./pages/person-acc-page.jsx";
 import { UsersPage } from "./pages/user-page.jsx";
-import users from '../__fixtures__/users.jsx'
+import users from '../__fixtures__/users.js'
 
 test.describe('application display test', () => {
   test('application display', async ({ page }) => {
@@ -20,8 +20,8 @@ test.describe('testing of the login function', () => {
     const loginPage = new LoginPage(page)
     await loginPage.navigateToLoginPage()
     await loginPage.login(textVault.username, textVault.password)
-    await expect(page.getByText("Welcome to the administration")).toBeVisible()
-    await expect(page.getByText("Lorem ipsum sic dolor amet...")).toBeVisible()
+    await expect(page.getByText(textVault.welcomeText)).toBeVisible()
+    await expect(page.getByText(textVault.additionalWelcomeText)).toBeVisible()
   })
 
   test("negative - login without username and password", async ({ page }) => {
@@ -58,8 +58,8 @@ test.describe('testing of the logout function', () => {
   
   test("logout", async ({ page }) => {
     const personAccPage = new PersonAccPage(page)
-    await expect(page.getByText('Welcome to the administration')).toBeVisible()
-    await expect(page.getByText('Lorem ipsum sic dolor amet...')).toBeVisible()
+    await expect(page.getByText(textVault.welcomeText)).toBeVisible()
+    await expect(page.getByText(textVault.additionalWelcomeText)).toBeVisible()
     await personAccPage.logOut()
     await expect(page.getByLabel('Username *')).toBeVisible()
     await expect(page.getByLabel('Password *')).toBeVisible()
@@ -78,21 +78,21 @@ test.describe('testing of the users section', () => {
   test("create user", async ({ page }) => {
     const usersPage = new UsersPage(page)
     await usersPage.navigateToUsersPage()
-    await usersPage.createUser('email@gmail.com', textVault.userFirstName, textVault.userLastName)
-    await expect(page.getByText("Element created")).toBeVisible()
-    await expect(page.locator(`input[value="email@gmail.com"]`)).toBeVisible() 
+    await usersPage.createUser(textVault.userEmail, textVault.userFirstName, textVault.userLastName)
+    await expect(page.getByText(textVault.userPageElementCreatedMessage)).toBeVisible()
+    await expect(page.locator(`input[value="${textVault.userEmail}"]`)).toBeVisible() 
     await expect(page.locator(`input[value="${textVault.userFirstName}"]`)).toBeVisible()
     await expect(page.locator(`input[value="${textVault.userLastName}"]`)).toBeVisible()
     await expect(page.getByLabel("Show")).toBeVisible()
     await expect(page.locator(`[disabled][aria-label="Save"]`)).toBeVisible()
     await expect(page.getByLabel("Delete")).toBeVisible()
     await usersPage.clickShowButton()
-    await expect(page.getByText("email@gmail.com", { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.userEmail, { exact: true })).toBeVisible()
     await expect(page.getByText(textVault.userFirstName, { exact: true })).toBeVisible()
     await expect(page.getByText(textVault.userLastName, { exact: true })).toBeVisible()
     await expect(page.getByLabel("Edit")).toBeVisible()
     await usersPage.navigateToUsersPage()  
-    await expect(page.getByText("email@gmail.com", { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.userEmail, { exact: true })).toBeVisible()
     await expect(page.getByText(textVault.userFirstName, { exact: true })).toBeVisible()
     await expect(page.getByText(textVault.userLastName, { exact: true })).toBeVisible() 
   })
@@ -111,7 +111,7 @@ test.describe('testing of the users section', () => {
   test("editing form", async ({ page }) => {
     const usersPage = new UsersPage(page)
     await usersPage.navigateToUsersPage()
-    await usersPage.openUserData('john@google.com')
+    await usersPage.openUserData(textVault.firstUserEmail)
     await expect(page.locator(`input[value="${users[0].Email}"]`)).toBeVisible()
     await expect(page.locator(`input[value="${users[0].FirstName}"]`)).toBeVisible()
     await expect(page.locator(`input[value="${users[0].LastName}"]`)).toBeVisible()
@@ -123,10 +123,10 @@ test.describe('testing of the users section', () => {
   test("edit user", async ({ page }) => {
     const usersPage = new UsersPage(page)
     await usersPage.navigateToUsersPage()
-    await usersPage.editUser('john@google.com', 'ChangedFirstName')
+    await usersPage.editUser(textVault.firstUserEmail, textVault.changedUserFirstName)
     await usersPage.navigateToUsersPage()
     await expect(page.getByText(users[0].Email, { exact: true })).toBeVisible()
-    await expect(page.getByText("ChangedFirstName", { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.changedUserFirstName, { exact: true })).toBeVisible()
     await expect(page.getByText(users[0].LastName, { exact: true })).toBeVisible()
     await expect(page.getByText(users[0].FirstName, { exact: true })).not.toBeVisible()  
   })
@@ -134,12 +134,12 @@ test.describe('testing of the users section', () => {
   test("edit user from create form", async ({ page }) => {
     const usersPage = new UsersPage(page)
     await usersPage.navigateToUsersPage()
-    await usersPage.createUser('useremail@gmail.com', textVault.userFirstName, textVault.userLastName)
+    await usersPage.createUser(textVault.userEmail, textVault.userFirstName, textVault.userLastName)
     await usersPage.clickShowButton()
-    await usersPage.editUserClickingEditButton('ChangedFirstName')
+    await usersPage.editUserClickingEditButton(textVault.changedUserFirstName)
     await usersPage.navigateToUsersPage()
-    await expect(page.getByText("useremail@gmail.com", { exact: true })).toBeVisible()
-    await expect(page.getByText("ChangedFirstName", { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.userEmail, { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.changedUserFirstName, { exact: true })).toBeVisible()
     await expect(page.getByText(textVault.userLastName, { exact: true })).toBeVisible()
     await expect(page.getByText(textVault.userFirstName, { exact: true })).not.toBeVisible() 
   })
@@ -147,14 +147,14 @@ test.describe('testing of the users section', () => {
   test("negative - edit user", async ({ page }) => {
     const usersPage = new UsersPage(page)
     await usersPage.navigateToUsersPage()
-    await usersPage.editUser('john@google.com', '')
+    await usersPage.editUser(textVault.firstUserEmail, '')
     await expect(page.getByText(textVault.errorTextLoginPage, { exact: true })).toBeVisible()
   })
 
   test("delete user", async ({ page }) => {
     const usersPage = new UsersPage(page)
     await usersPage.navigateToUsersPage()
-    await usersPage.deleteUser('john@google.com')
+    await usersPage.deleteUser(textVault.firstUserEmail)
     await usersPage.navigateToUsersPage()
     await expect(page.getByText(users[0].Email, { exact: true })).not.toBeVisible()
     await expect(page.getByText(users[0].FirstName, { exact: true })).not.toBeVisible()
@@ -166,6 +166,6 @@ test.describe('testing of the users section', () => {
     await usersPage.navigateToUsersPage()
     await usersPage.deleteAllUsers()
     await usersPage.navigateToUsersPage()
-    await expect(page.getByText("No Users yet.")).toBeVisible()
+    await expect(page.getByText(textVault.noUsersText)).toBeVisible()
   })
 })

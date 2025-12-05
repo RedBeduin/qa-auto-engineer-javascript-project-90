@@ -2,16 +2,6 @@ export class LabelsPage {
   constructor(page) {
     this.page = page
   }
-
-  async navigateToLoginPage() {
-    await this.page.goto('http://localhost:5173/#/login')
-  }
-
-  async login(username, password) {
-    await this.page.getByLabel('Username *').fill(username)
-    await this.page.getByLabel('Password *').fill(password)
-    await this.page.getByRole('button', { name: 'Sign in' }).click()
-  }
   
   async navigateToLabelsPage() {
     await this.page.goto('http://localhost:5173/#/labels')
