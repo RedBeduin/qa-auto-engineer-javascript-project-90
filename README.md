@@ -2,6 +2,10 @@
 
 [![hexlet-check](https://github.com/RedBeduin/qa-auto-engineer-javascript-project-90/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/RedBeduin/qa-auto-engineer-javascript-project-90/actions/workflows/hexlet-check.yml)
 
+## Playwright tests status
+
+[![Playwright Tests](https://github.com/RedBeduin/qa-auto-engineer-javascript-project-90/actions/workflows/playwright.yml/badge.svg)](https://github.com/RedBeduin/qa-auto-engineer-javascript-project-90/actions/workflows/playwright.yml)
+
 ## Testing of the Kanban-board
 
 ### Purpose of the project
@@ -13,13 +17,19 @@ The purpose of the project is to test the application "Task Manager", containing
 * Labels
 * Task statuses
 
-### How to copy the project to your PC
+### How to copy the project to your PC and assemble it
 
-To copy the project to your PC, open Ubuntu, type in the command line
+To copy the project to your PC, open your work environment, type in the command line
 ```
 git clone https://github.com/RedBeduin/qa-auto-engineer-javascript-project-90.git
 ```
 and rename the repository of the project if you want.
+
+To assemble the project, move to the project directory and write
+```
+npm i
+```
+in the command line.
 
 ### How to install the application that is tested in the project
 
@@ -40,7 +50,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>  
 )
 ```
-2.2 In the Ubuntu, move to the directory of your project and write
+2.2 Move to the directory of your project and write
 ```
 npm run dev
 ```
@@ -49,6 +59,23 @@ then write
 o
 ```
 and press ```Enter```
+
+### How to run the tests that were written in the project
+
+To run all tests at once, write
+```
+npx playwright test
+```
+in the command line.
+
+To run certain test file, write
+```
+npm run e2e tests/the name of the file
+```
+For example,
+```
+npm run e2e tests/labels.spec.js
+```
 
 ### The development of the project
 
@@ -75,20 +102,3 @@ The development of the project includes:
 ### The Tasks that are solved in this project
 
 The main task of the project is to check if the application works correctly. The additional task is to check the availability of the special application behaviour in the cases then the user performs incorrect actions(for example, attempts to log in without entering the password).
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
