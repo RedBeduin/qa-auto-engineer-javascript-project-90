@@ -54,13 +54,13 @@ test.describe('testing of the tasks section', () => {
   test('edit tasks from summary screen', async({ page }) => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
-    await tasksPage.showTaskAndEditAssigneeFirstName('1', 'ChangedFirstName')
+    await tasksPage.showTaskAndEditAssigneeFirstName('1', textVault.changedUserFirstName)
     await tasksPage.navigateToTasksPage()
     await tasksPage.showTask('1')
     await tasksPage.clickAssigneeEmail()
-    await expect(page.getByText("ChangedFirstName")).toBeVisible()
+    await expect(page.getByText(textVault.changedUserFirstName)).toBeVisible()
     await tasksPage.navigateToUsersPage()
-    await expect(page.getByText("ChangedFirstName")).toBeVisible()
+    await expect(page.getByText(textVault.changedUserFirstName)).toBeVisible()
   })
 
   test('delete tasks', async({ page }) => {
@@ -75,5 +75,14 @@ test.describe('testing of the tasks section', () => {
     await tasksPage.navigateToTasksPage()
     await tasksPage.filterTasks(textVault.assigneeFilterOption, textVault.statusFilterOption, textVault.labelFilterOption)
     await expect(page.getByText(textVault.task15Title, { exact: true })).toBeVisible()
+  })
+
+  test('move task from one status column to another', async({ page }) => {
+    const tasksPage = new TasksPage(page)
+    await tasksPage.navigateToTasksPage()
+    await tasksPage.moveToAnotherColumn(textVault.task1Title, textVault.task2Title)
+    await tasksPage.filterTasksByStatus(textVault.taskStatusOption)
+    await expect(page.getByText(textVault.task1Title, { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.task2Title, { exact: true })).toBeVisible()
   })
 })

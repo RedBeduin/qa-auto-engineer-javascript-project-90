@@ -101,4 +101,4 @@ The development of the project includes:
 
 ### The Tasks that are solved in this project
 
-The main task of the project is to check if the application works correctly. The additional task is to check the availability of the special application behaviour in the cases then the user performs incorrect actions(for example, attempts to log in without entering the password).
+The main task of the project is to check if the application works correctly. The additional task is to check the availability of the special application behavior in the cases then the user performs incorrect actions(for example, attempts to log in without entering the password).

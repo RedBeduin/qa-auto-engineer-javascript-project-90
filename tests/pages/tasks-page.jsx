@@ -69,4 +69,15 @@ export class TasksPage {
     await this.page.getByRole('combobox', { name: 'Label' }).click()
     await this.page.getByRole('option', { name: labelFilterOption }).click()
   }
+
+  async filterTasksByStatus(statusFilterOption) {
+    await this.page.getByRole('combobox', { name: 'Status' }).click()
+    await this.page.getByRole('option', { name: statusFilterOption }).click()
+  }
+
+  async moveToAnotherColumn(movedTaskTitle, destinationTaskTitle) {
+    const movedTitle = this.page.getByText(movedTaskTitle, { exact: true })
+    const destinationTitle = this.page.getByText(destinationTaskTitle, { exact: true })
+    await movedTitle.dragTo(destinationTitle)
+  }
 }
