@@ -48,7 +48,7 @@ test.describe('testing of the tasks section', () => {
     await tasksPage.changeTaskName('1', textVault.taskTitleChanged)
     await tasksPage.navigateToTasksPage()
     await expect(page.getByText(textVault.taskTitleChanged)).toBeVisible()
-    await expect(page.getByText(textVault.task1Title, { exact: true })).not.toBeVisible()
+    await expect(page.getByText(textVault.taskTitle1, { exact: true })).not.toBeVisible()
   })
 
   test('edit tasks from summary screen', async({ page }) => {
@@ -67,22 +67,22 @@ test.describe('testing of the tasks section', () => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
     await tasksPage.deleteTask('1')
-    await expect(page.getByText(textVault.task1Title, { exact: true })).not.toBeVisible()
+    await expect(page.getByText(textVault.taskTitle1, { exact: true })).not.toBeVisible()
   })
 
   test('filter tasks', async({ page }) => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
     await tasksPage.filterTasks(textVault.assigneeFilterOption, textVault.statusFilterOption, textVault.labelFilterOption)
-    await expect(page.getByText(textVault.task15Title, { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.taskTitle15, { exact: true })).toBeVisible()
   })
 
   test('move task from one status column to another', async({ page }) => {
     const tasksPage = new TasksPage(page)
     await tasksPage.navigateToTasksPage()
-    await tasksPage.moveToAnotherColumn(textVault.task1Title, textVault.task2Title)
+    await tasksPage.moveToAnotherColumn(textVault.taskTitle1, textVault.taskTitle2)
     await tasksPage.filterTasksByStatus(textVault.taskStatusOption)
-    await expect(page.getByText(textVault.task1Title, { exact: true })).toBeVisible()
-    await expect(page.getByText(textVault.task2Title, { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.taskTitle1, { exact: true })).toBeVisible()
+    await expect(page.getByText(textVault.taskTitle2, { exact: true })).toBeVisible()
   })
 })
